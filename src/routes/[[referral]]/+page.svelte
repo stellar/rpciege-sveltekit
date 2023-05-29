@@ -9,7 +9,7 @@
   let codes: Array<any> = []
   let loading: boolean = false
   let token: string
-  let countdown: string
+  // let countdown: string
 
   $: claimed = codes.filter(({status}) => status !== 'unused').length
 
