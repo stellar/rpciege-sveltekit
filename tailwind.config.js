@@ -8,7 +8,8 @@ export default {
       'white': '#ffffff',
       'black': '#000000',
       'transparent': 'transparent',
-      'yellow': '#e2c69a'
+      'yellow': '#e2c69a',
+      'green': '#78c484'
     },
   },
   plugins: [],

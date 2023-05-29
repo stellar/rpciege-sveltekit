@@ -13,7 +13,7 @@
 
   $: claimed = codes.filter(({status}) => status !== 'unused').length
 
-  const countdownInterval = setInterval(() => updateCountdown(), 1000)
+  // const countdownInterval = setInterval(() => updateCountdown(), 1000)
 
   const image_ids = [
     "ccb0656e-6a7d-4a83-1e31-51e8b03da200",
@@ -29,7 +29,7 @@
   ]
 
   if (browser) {
-    updateCountdown()
+    // updateCountdown()
 
     if (form?.token)
       localStorage.setItem('token', form.token)
@@ -141,24 +141,24 @@
     })
   }
 
-  function updateCountdown() {
-    const now = new Date().getTime()
-    const eventDate = new Date("2023-05-29T00:00:00Z").getTime()
-    const timeLeft = eventDate - now
+  // function updateCountdown() {
+  //   const now = new Date().getTime()
+  //   const eventDate = new Date("2023-05-29T00:00:00Z").getTime()
+  //   const timeLeft = eventDate - now
 
-    if (timeLeft <= 0) {
-      clearInterval(countdownInterval)
-      countdown = `0d 0h 0m 0s`
-      return
-    }
+  //   if (timeLeft <= 0) {
+  //     clearInterval(countdownInterval)
+  //     countdown = `0d 0h 0m 0s`
+  //     return
+  //   }
 
-    const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24))
-    const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))
-    const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60))
-    const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000).toString().padStart(2, '0')
+  //   const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24))
+  //   const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))
+  //   const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60))
+  //   const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000).toString().padStart(2, '0')
     
-    countdown = `${days}d ${hours}h ${minutes}m ${seconds}s`
-  }
+  //   countdown = `${days}d ${hours}h ${minutes}m ${seconds}s`
+  // }
 </script>
 
 <div class="fixed top-0 left-0 right-0 min-h-screen bg-no-repeat bg-cover bg-top" style:background-image="url('./HQ-upscale.jpg')"></div>
@@ -171,7 +171,11 @@
     <div class="!absolute inset-0 z-0 opacity-90 bg-yellow bg-center bg-repeat" style:background-image="url(./bg-signup.jpg)"></div>
     
     {#if codes.length}
-      <h1 class="text-3xl text-black" style:font-family="Columbus" style:line-height="revert">Now, Recruit An Army</h1>
+      <h1 class="flex items-start text-black mb-2">
+        <span class="text-3xl" style:font-family="Columbus" style:line-height="revert">Now, Recruit An Army</span>
+        &nbsp; or
+        <a class="px-2 py-1 rounded hover:ring-2 hover:ring-black hover:ring-offset-2 ring-offset-yellow bg-black text-yellow ml-2" href="/booklet" data-sveltekit-reload>Play The Game</a>
+      </h1>
 
       <img class="w-full" src="./rpciege-posters-shadow.png">
 
@@ -215,7 +219,10 @@
         <img class="absolute z-0 right-0 max-[650px]:opacity-30 max-[650px]:!-top-24 pointer-events-none" style:width="180px" style:top="-30px" src="./enlistment-icon.png">
       </form>
     {:else}
-      <h1 class="text-3xl text-black mb-2" style:font-family="Columbus" style:line-height="revert">Siege Begins May 29th</h1>
+      <h1 class="flex items-start text-black mb-2">
+        <span class="text-3xl" style:font-family="Columbus" style:line-height="revert">The Siege Has Begun!</span>
+        <a class="px-2 py-1 rounded hover:ring-2 hover:ring-black hover:ring-offset-2 ring-offset-yellow bg-black text-yellow ml-2" href="/booklet" data-sveltekit-reload>Play The Game</a>
+      </h1>
 
       <p class="font-serif mb-3">
         Blast back to the future of gaming with 'RPCiege"! Get ready for an adrenaline-pumped, mind-blowing <a class="underline" href="https://soroban.stellar.org/">Soroban</a> developer experience where you're not just playing a game, you're rewriting history with every challenge you conquer. Each task you tackle takes you through time, unlocking NFTs styled after the most legendary heroes and villains known to man! With 5 levels of nail-biting difficulty, the stakes only get higher the more you play.
@@ -248,14 +255,15 @@
 
     <div class="flex mt-4 max-[560px]:flex-col">
       <div class="flex [&>a]:text-sm [&>a]:underline [&>a]:text-center [&>a:hover]:text-red max-[560px]:justify-center">
-        <a href="https://soroban.stellar.org">Learn about Soroban</a>
-        <a class="border-l px-2 border-r mx-2" href="https://discord.gg/stellardev">Join the Discord</a>
+        <a class="border-r pr-2 mr-2" href="/booklet" data-sveltekit-reload>Play the Game</a>
+        <a class="border-r pr-2 mr-2" href="https://soroban.stellar.org">Learn about Soroban</a>
+        <a class="border-r pr-2 mr-2" href="https://discord.gg/stellardev">Join the Discord</a>
         <a href="https://twitter.com/sorobanofficial">Follow on Twitter</a>
       </div>
 
-      {#if countdown}
+      <!-- {#if countdown}
         <span class="text-sm ml-auto bg-black rounded text-yellow px-1 tabular-nums max-[560px]:mt-4 max-[560px]:mr-auto">{countdown}</span>
-      {/if}
+      {/if} -->
     </div>
   </div>
 

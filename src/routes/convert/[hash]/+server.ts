@@ -2,7 +2,7 @@ import { text } from "@sveltejs/kit";
 import { StrKey } from "stellar-base"; 
 
 /** @type {import('./$types').RequestHandler} */
-export async function GET({ request, platform, params }) {
+export async function GET({ params }) {
   let hash
 
   if (params.hash.length === 64)
