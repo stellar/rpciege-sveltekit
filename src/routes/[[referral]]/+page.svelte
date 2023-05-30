@@ -171,10 +171,10 @@
     <div class="!absolute inset-0 z-0 opacity-90 bg-yellow bg-center bg-repeat" style:background-image="url(./bg-signup.jpg)"></div>
     
     {#if codes.length}
-      <h1 class="flex items-start text-black mb-2">
-        <span class="text-3xl" style:font-family="Columbus" style:line-height="revert">Now, Recruit An Army</span>
+      <h1 class="flex items-center text-black mb-2">
+        <span class="text-3xl -mb-4" style:font-family="Columbus" style:line-height="revert">Now, Recruit An Army</span>
         &nbsp; or
-        <a class="px-2 py-1 rounded hover:ring-2 hover:ring-black hover:ring-offset-2 ring-offset-yellow bg-black text-yellow ml-2" href="/booklet" data-sveltekit-reload>Play The Game</a>
+        <a class="px-4 py-2 rounded hover:ring-2 hover:ring-red hover:ring-offset-2 ring-offset-yellow bg-red text-yellow ml-2" href="/booklet" data-sveltekit-reload>Play The Game</a>
       </h1>
 
       <img class="w-full" src="./rpciege-posters-shadow.png">
@@ -219,9 +219,9 @@
         <img class="absolute z-0 right-0 max-[650px]:opacity-30 max-[650px]:!-top-24 pointer-events-none" style:width="180px" style:top="-30px" src="./enlistment-icon.png">
       </form>
     {:else}
-      <h1 class="flex items-start text-black mb-2">
-        <span class="text-3xl" style:font-family="Columbus" style:line-height="revert">The Siege Has Begun!</span>
-        <a class="px-2 py-1 rounded hover:ring-2 hover:ring-black hover:ring-offset-2 ring-offset-yellow bg-black text-yellow ml-2" href="/booklet" data-sveltekit-reload>Play The Game</a>
+      <h1 class="flex items-center text-black mb-2">
+        <span class="text-3xl -mb-4" style:font-family="Columbus" style:line-height="revert">The Siege Has Begun!</span>
+        <a class="px-4 py-2 rounded hover:ring-2 hover:ring-red hover:ring-offset-2 ring-offset-yellow bg-red text-yellow ml-2" href="/booklet" data-sveltekit-reload>Play The Game</a>
       </h1>
 
       <p class="font-serif mb-3">
