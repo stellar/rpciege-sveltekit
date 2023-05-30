@@ -164,7 +164,8 @@
 
       const { signedXDR } = await kit.sign({
         xdr: transaction.toXDR(),
-        publicKey: pubkey,
+        // albedo does not require this but not specifying it allows to choose different signers in their UI
+        publicKey: wallettype == WalletType.ALBEDO ? undefined : pubkey, 
       })
 
       const txBody = new FormData()
