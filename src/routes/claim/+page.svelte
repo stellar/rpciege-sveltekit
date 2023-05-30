@@ -164,7 +164,7 @@
 
       const { signedXDR } = await kit.sign({
         xdr: transaction.toXDR(),
-        publicKey: pubkey,
+        // publicKey: pubkey,
       })
 
       const txBody = new FormData()
@@ -238,7 +238,7 @@
             </li>
 
             {#each cards as card, i2}
-              <li class="relative flex items-start" style:transition="transform 250ms" style:width="1rem" style:top="{`calc(0.5rem * ${i2} + 1rem)`}" style:transform={`translateX(calc(-1rem * ${i2} - 150px + 1rem))`} >
+              <li class="relative flex items-start" style:transition="transform 250ms" style:width="1rem" style:height="1rem" style:top="{`calc(0.5rem * ${i2} + 1rem)`}" style:transform={`translateX(calc(-1rem * ${i2} - 150px + 1rem))`} >
                 <a href={`https://assets.rpciege.com/${card.code}.mp4`}>
                   <img class="relative h-[150px] drop-shadow max-w-none" src={`https://assets.rpciege.com/${card.code}.jpg`}>
                 </a>
@@ -257,7 +257,7 @@
             </li>
 
             {#each cards as card, i2}
-              <li class="relative flex items-start" style:transition="transform 250ms" style:width="1rem" style:top="{`calc(0.5rem * ${i2} + 1rem)`}" style:transform={`translateX(calc(-1rem * ${i2} - 150px + 1rem))`} >
+              <li class="relative flex items-start" style:transition="transform 250ms" style:width="1rem" style:height="1rem" style:top="{`calc(0.5rem * ${i2} + 1rem)`}" style:transform={`translateX(calc(-1rem * ${i2} - 150px + 1rem))`} >
                 <img class="relative h-[150px] drop-shadow max-w-none" src={`https://assets.rpciege.com/${card.code}.jpg`}>
 
                 {#if i2 === cards.length - 1}
