@@ -28,7 +28,7 @@
   lookupPacks()
 
   $: {
-    if (pubkey) {
+    if (setPacks && pubkey) {
       lookupAccount()
       lookupClaimableBalances()
 
