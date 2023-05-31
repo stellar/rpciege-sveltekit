@@ -4,15 +4,16 @@
   import { StellarWalletsKit, WalletNetwork, WalletType } from 'stellar-wallets-kit';
 
   let kit: StellarWalletsKit
-
   let pubkey: string|null = localStorage.getItem('pubkey')
   let wallettype: WalletType|null = localStorage.getItem('wallettype') as WalletType
+  let setPacks: [string, string][]
 
-  let claimed_posters: any[] = []
-  let claimed_packs: any = {}
   let claiming_posters: boolean = false
+  let claimed_posters: any[] = []
   let posters: any[] = []
+
   let claiming_packs: any = {}
+  let claimed_packs: any = {}
   let packs: any = {}
 
   const horizon_url = dev ? 'https://horizon-testnet.stellar.org' : 'https://horizon.stellar.org'
@@ -23,6 +24,8 @@
 
   // TODO 
     // implement pack logic into the JSON or TOML so we can very directly build packs off hard data vs dynamically
+
+  lookupPacks()
 
   $: {
     if (pubkey) {
@@ -75,17 +78,19 @@
         }
 
         else if (balance.asset_code?.startsWith('RPCIEGE')) {
-          const pack_idx = Math.ceil(balance.asset_code.replace(/\D/gmi, '') / 5) 
+          // const pack_idx = Math.ceil(balance.asset_code.replace(/\D/gmi, '') / 5)
+          const setPacksPack = setPacks.find(([, cards]) => cards.includes(balance.asset_code))
+          const setPacksPackKey = setPacksPack?.[0] || 'pack_0'
           const pack = {
               ...balance,
               code: balance.asset_code,
               issuer: balance.asset_issuer
             }
 
-          if (claimed_packs?.[`k_${pack_idx}`]) {
-            claimed_packs[`k_${pack_idx}`].push(pack)
+          if (claimed_packs?.[setPacksPackKey]) {
+            claimed_packs[setPacksPackKey].push(pack)
           } else {
-            claimed_packs[`k_${pack_idx}`] = [pack]
+            claimed_packs[setPacksPackKey] = [pack]
           }
         }
 
@@ -113,7 +118,8 @@
 
     pack_res?._embedded?.records.forEach((record: any) => {
       const [code, issuer] = record.asset.split(':')
-      const pack_idx = Math.ceil(code.replace(/\D/gmi, '') / 5) 
+      const setPacksPack = setPacks.find(([, cards]) => cards.includes(code))
+      const setPacksPackKey = setPacksPack?.[0] || 'pack_0'
 
       const pack = {
         ...record,
@@ -121,15 +127,21 @@
         issuer,
       }
 
-      if (packs?.[`k_${pack_idx}`]) {
-        packs[`k_${pack_idx}`].push(pack)
+      if (packs?.[setPacksPackKey]) {
+        packs[setPacksPackKey].push(pack)
       } else {
-        packs[`k_${pack_idx}`] = [pack]
+        packs[setPacksPackKey] = [pack]
       }
     })
 
     posters = posters
     packs = packs
+  }
+  async function lookupPacks() {
+    const packs: any = await fetch('https://futurenet.rpciege.com/packs.json').then((res) => res.json())
+
+    if (Object.keys(packs).length)
+      setPacks = Object.entries(packs)
   }
   async function claimClaimableBalance(records: any, key?: string) {
     if (key)
