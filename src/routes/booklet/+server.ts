@@ -1,4 +1,4 @@
 /** @type {import('./$types').RequestHandler} */
 export async function GET({ fetch }) {
-    return fetch(`/booklet.pdf`);
+    return fetch(`https://assets.rpciege.com/static/booklet.pdf`);
 }
