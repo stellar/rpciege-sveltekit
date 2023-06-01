@@ -296,4 +296,11 @@
       </li>
     </ul>
   {/if}
+
+  <div class="flex [&>a]:text-sm [&>a]:underline [&>a]:text-center [&>a:hover]:text-red max-[560px]:justify-center">
+    <a class="border-r pr-2 mr-2" href="/booklet" data-sveltekit-reload>Play the Game</a>
+    <a class="border-r pr-2 mr-2" href="https://soroban.stellar.org">Learn about Soroban</a>
+    <a class="border-r pr-2 mr-2" href="https://discord.gg/stellardev">Join the Discord</a>
+    <a href="https://twitter.com/sorobanofficial">Follow on Twitter</a>
+  </div>
 </div>
