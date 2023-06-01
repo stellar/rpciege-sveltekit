@@ -230,7 +230,7 @@
               <img class="h-[150px] drop-shadow mr-2" src={`https://api.stellar.quest/badge/${poster.issuer}?v=4&network=public`}>
 
               {#if posters.length - 1 === i}
-                <button class="bg-black text-white rounded px-3 py-1 self-start" on:click={() => claimClaimableBalance(posters)}>{claiming_posters ? '...' : 'Claim'} </button>
+                <button class="gtm-trigger bg-black text-white rounded px-3 py-1 self-start" on:click={() => claimClaimableBalance(posters)}>{claiming_posters ? '...' : 'Claim'}</button>
               {/if}
             </li>
           {/each}
@@ -263,7 +263,7 @@
       <!-- Claimable Packs -->
       {#if Object.keys(packs).length}
         {#each Object.entries(packs) as [key, cards]}
-          <ul class="flex mb-4 cursor-pointer [&>li]:hover:!translate-x-0" style:min-width="400px" on:click={() => claimClaimableBalance(cards, key)}>
+          <ul class="gtm-trigger flex mb-4 cursor-pointer [&>li]:hover:!translate-x-0" style:min-width="400px" on:click={() => claimClaimableBalance(cards, key)}>
             <li class="relative z-10">
               <img class="relative" style:left="-0.5rem" style:top="-0.5rem" style:width="150px" src={`./pack${Number(key.split('_')[1])}.png`}>
             </li>
