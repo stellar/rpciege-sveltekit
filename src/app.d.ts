@@ -21,6 +21,8 @@ declare global {
 
 				FCA00C_PK: string;
 				FCA00C_SK: string;
+				RPCIEGE_PK: string;
+				RPCIEGE_SK: string;
 				POSTER_1_PK: string;
 				POSTER_2_PK: string;
 				POSTER_3_PK: string;

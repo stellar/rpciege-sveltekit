@@ -150,37 +150,36 @@
       claiming_posters = true
 
     try {
-      const horizon_url = dev ? 'https://horizon-testnet.stellar.org' : 'https://horizon.stellar.org'
-      const account: any = await fetch(`${horizon_url}/accounts/${pubkey}`).then((res) => res.json())
-      const source = new Account(pubkey, account?.sequence)
-
-      let transaction: Transaction|TransactionBuilder = new TransactionBuilder(source, { 
-        fee: (1_000_000).toString(), 
-        networkPassphrase: dev ? Networks.TESTNET : Networks.PUBLIC
+      const xdrInner: any = await fetch('/claim', {
+        method: 'POST',
+        body: JSON.stringify({
+          pubkey,
+          records: records.map(({code, issuer, id}: any) => ({code, issuer, id}))
+        })
+      }).then(async (res) => {
+        if (res.ok)
+          return res.text()
+        throw res
       })
 
-      for (const record of records) {
-        transaction
-        .addOperation(Operation.changeTrust({
-          asset: new Asset(record.code, record.issuer),
-          limit: '0.0000001',
-        }))
-        .addOperation(Operation.claimClaimableBalance({
-          balanceId: record.id
-        }))
-      }
-
-      transaction = transaction
-      .setTimeout(30)
-      .build()
-
       const { signedXDR } = await kit.sign({
-        xdr: transaction.toXDR(),
+        xdr: xdrInner,
         // publicKey: pubkey,
       })
 
+      const xdrOuter: any = await fetch('/claim', {
+        method: 'POST',
+        body: JSON.stringify({
+          tx: signedXDR,
+        })
+      }).then(async (res) => {
+        if (res.ok)
+          return res.text()
+        throw res
+      })
+
       const txBody = new FormData()
-            txBody.append('tx', signedXDR)
+            txBody.append('tx', xdrOuter)
 
       const res: any = await fetch(`${horizon_url}/transactions`, {
         method: 'POST',
@@ -193,7 +192,13 @@
         lookupClaimableBalances()
       } else
         alert(JSON.stringify(res, null, 2))
-    } finally {
+    } 
+
+    catch(err) {
+      console.error(err);
+    }
+
+    finally {
       if (key)
         claiming_packs[key] = false
       else
@@ -297,7 +302,7 @@
     </ul>
   {/if}
 
-  <div class="flex [&>a]:text-sm [&>a]:underline [&>a]:text-center [&>a:hover]:text-red max-[560px]:justify-center">
+  <div class="flex mt-2 [&>a]:text-sm [&>a]:underline [&>a]:text-center [&>a:hover]:text-red max-[560px]:justify-center">
     <a class="border-r pr-2 mr-2" href="/booklet" data-sveltekit-reload>Play the Game</a>
     <a class="border-r pr-2 mr-2" href="https://soroban.stellar.org">Learn about Soroban</a>
     <a class="border-r pr-2 mr-2" href="https://discord.gg/stellardev">Join the Discord</a>
