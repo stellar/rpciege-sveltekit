@@ -2,7 +2,6 @@
 	import { dev } from '$app/environment';
 	import { page } from '$app/stores';
 	import packs from '$lib/packs.json';
-	import { deriveNFTIssuer } from '$lib/utils';
 	import { StellarWalletsKit, WalletNetwork, WalletType } from 'stellar-wallets-kit';
 
 	let kit: StellarWalletsKit;
@@ -159,6 +158,8 @@
 						<button on:click={() => setupKit(WalletType.XBULL)}>xBull</button>
 					</li>
 				</ul>
+			{:else if token === ''}
+				You are not {metadata?.name}
 			{:else}
 				<p class="mb-2">If you are {metadata?.name}</p>
 				<a

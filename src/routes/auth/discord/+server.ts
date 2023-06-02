@@ -1,4 +1,4 @@
-import { error, fail } from '@sveltejs/kit'
+import { error } from '@sveltejs/kit'
 import { fetcher } from 'itty-fetcher'
 import jwt from '@tsndr/cloudflare-worker-jwt'
 import packs from '$lib/packs.json'
@@ -37,17 +37,22 @@ export async function GET({ request, platform }) {
         }
       })
 
-      if (discordRes?.id !== state)
-        throw error(401, { message: 'Invalid state' })
-
-      const token = await jwt.sign({ 
-        sub: discordRes?.id,
-        code: packs[state],
-        issuer: (await deriveNFTIssuer(packs[state], platform)).publicKey(),
-        exp: Math.floor(Date.now() / 1000) + 300 // 5 minutes
-      }, platform?.env?.JWT_SECRET)
-
       if (discordRes?.id) {
+        if (discordRes?.id !== state)
+          return new Response(null, {
+            status: 307,
+            headers: {
+              Location: `${url.origin}/community/${state}?token=`
+            }
+          })
+
+        const token = await jwt.sign({ 
+          sub: discordRes?.id,
+          code: packs[state],
+          issuer: (await deriveNFTIssuer(packs[state], platform)).publicKey(),
+          exp: Math.floor(Date.now() / 1000) + 300 // 5 minutes
+        }, platform?.env?.JWT_SECRET)
+
         return new Response(null, {
           status: 307,
           headers: {
