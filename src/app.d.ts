@@ -14,6 +14,8 @@ declare global {
 				SG_VALIDATION: string;
 				JWT_SECRET: string;
 				CF_SECRET: string;
+				DISCORD_CLIENT_ID: string;
+				DISCORD_CLIENT_SECRET: string;
 
 				ENVIRONMENT: development|production;
 				HORIZON_URL: string;

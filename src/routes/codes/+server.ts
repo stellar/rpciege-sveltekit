@@ -1,4 +1,4 @@
-import { fail, json } from "@sveltejs/kit";
+import { error, json } from "@sveltejs/kit";
 import jwt from '@tsndr/cloudflare-worker-jwt'
 
 /** @type {import('./$types').RequestHandler} */
@@ -6,10 +6,10 @@ export async function GET({ request, platform }) {
   let token = request.headers.get('authorization')?.replace('Bearer ', '')
 
   if (!token)
-    fail(401, { message: 'Missing token' })
+    throw error(401, { message: 'Missing token' })
 
   if (!await jwt.verify(token, platform?.env?.JWT_SECRET))
-    fail(401, { message: 'Invalid token' })
+    throw error(401, { message: 'Invalid token' })
 
   const { payload } = jwt.decode(token)
   

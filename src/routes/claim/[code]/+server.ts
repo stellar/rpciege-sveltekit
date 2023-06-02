@@ -1,5 +1,5 @@
 import { submitClaimableBalance } from "$lib/stellar";
-import { error, fail, text } from "@sveltejs/kit";
+import { error, text } from "@sveltejs/kit";
 import jwt from '@tsndr/cloudflare-worker-jwt'
 
 /** @type {import('./$types').RequestHandler} */
@@ -7,10 +7,10 @@ export async function POST({ request, platform, params }) {
   let token = request.headers.get('authorization')?.replace('Bearer ', '')
 
   if (!token)
-    fail(401, { message: 'Missing token' })
+    throw error(401, { message: 'Missing token' })
 
   if (!await jwt.verify(token, platform?.env?.JWT_SECRET))
-    fail(401, { message: 'Invalid token' })
+    throw error(401, { message: 'Invalid token' })
 
   const { payload } = jwt.decode(token)
   

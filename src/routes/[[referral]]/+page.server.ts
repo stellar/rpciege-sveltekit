@@ -43,7 +43,7 @@ export const actions = {
     if (!email)
       return fail(400, { missing: true })
 
-    const id = await sha256(email)
+    const id = await sha256(email, 'hex')
     const emailExists = await platform?.env?.EMAILS.get(id)
 
     if (!emailExists) {

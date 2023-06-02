@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { dev } from '$app/environment';
-	import { Account, Asset, Networks, Operation, Transaction, TransactionBuilder } from 'stellar-base';
   import { StellarWalletsKit, WalletNetwork, WalletType } from 'stellar-wallets-kit';
 
   let kit: StellarWalletsKit
