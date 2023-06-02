@@ -1,6 +1,7 @@
 import { dev } from "$app/environment";
-import { error, text } from "@sveltejs/kit";
+import { error, json } from "@sveltejs/kit";
 import { Account, Asset, Keypair, Networks, Operation, Transaction, TransactionBuilder } from "stellar-base";
+import jwt from '@tsndr/cloudflare-worker-jwt'
 
 const networkPassphrase = dev ? Networks.TESTNET : Networks.PUBLIC
 const horizon_url = dev ? 'https://horizon-testnet.stellar.org' : 'https://horizon.stellar.org'
@@ -47,11 +48,32 @@ export async function POST({ request, platform }) {
 
     transaction.sign(Keypair.fromSecret(platform?.env?.RPCIEGE_SK))
 
-    return text(transaction.toXDR())
+    const token = await jwt.sign({ 
+      hash: transaction.hash().toString('hex'),
+      exp: Math.floor(Date.now() / 1000) + 60 // 1 minute
+    }, platform?.env?.JWT_SECRET)
+
+    return json({
+      token,
+      xdr: transaction.toXDR(),
+    })
   } 
   
   else if (tx) {
+    let token = request.headers.get('authorization')?.replace('Bearer ', '')
+
+    if (!token)
+      throw error(401, { message: 'Missing token' })
+
+    if (!await jwt.verify(token, platform?.env?.JWT_SECRET))
+      throw error(401, { message: 'Invalid token' })
+
+    const { payload } = jwt.decode(token)
     const transaction = new Transaction(tx, networkPassphrase);
+
+    if (payload.hash !== transaction.hash().toString('hex'))
+      throw error(401, { message: 'Invalid hash' })
+
     const bumpedTransaction = TransactionBuilder.buildFeeBumpTransaction(
       platform?.env?.RPCIEGE_PK,
       (1_000_000).toString(),
@@ -61,7 +83,9 @@ export async function POST({ request, platform }) {
 
     bumpedTransaction.sign(Keypair.fromSecret(platform?.env?.RPCIEGE_SK));
 
-    return text(bumpedTransaction.toXDR())
+    return json({
+      xdr: bumpedTransaction.toXDR()
+    })
   } 
   
   else {

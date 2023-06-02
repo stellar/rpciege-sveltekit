@@ -106,6 +106,8 @@
     posters = []
     packs = {}
 
+    // TODO unique by asset code
+
     poster_res?._embedded?.records.forEach((record: any) => {
       const [code, issuer] = record.asset.split(':')
 
@@ -150,7 +152,7 @@
       claiming_posters = true
 
     try {
-      const xdrInner: any = await fetch('/claim', {
+      const {token, xdr: xdrInner}: any = await fetch('/claim', {
         method: 'POST',
         body: JSON.stringify({
           pubkey,
@@ -158,7 +160,7 @@
         })
       }).then(async (res) => {
         if (res.ok)
-          return res.text()
+          return res.json()
         throw res
       })
 
@@ -167,14 +169,17 @@
         // publicKey: pubkey,
       })
 
-      const xdrOuter: any = await fetch('/claim', {
+      const { xdr: xdrOuter }: any = await fetch('/claim', {
         method: 'POST',
+        headers: {
+          Authorization: `Bearer ${token}`
+        },
         body: JSON.stringify({
           tx: signedXDR,
         })
       }).then(async (res) => {
         if (res.ok)
-          return res.text()
+          return res.json()
         throw res
       })
 
