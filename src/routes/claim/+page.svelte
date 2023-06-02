@@ -77,7 +77,11 @@
         }
 
         else if (balance.asset_code?.startsWith('RPCIEGE')) {
-          // const pack_idx = Math.ceil(balance.asset_code.replace(/\D/gmi, '') / 5)
+          // Don't display community cards for now
+          // TODO
+          if (balance.asset_code.substr(-1) === 'C')
+            return
+
           const setPacksPack = setPacks.find(([, cards]) => cards.includes(balance.asset_code))
           const setPacksPackKey = setPacksPack?.[0] || 'pack_0'
           const pack = {
