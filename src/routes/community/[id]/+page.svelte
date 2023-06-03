@@ -2,6 +2,7 @@
 	import { dev } from '$app/environment';
 	import { page } from '$app/stores';
 	import packs from '$lib/packs.json';
+	import { deriveNFTIssuerClient } from '$lib/utils';
 	import { StellarWalletsKit, WalletNetwork, WalletType } from 'stellar-wallets-kit';
 
 	let kit: StellarWalletsKit;
@@ -20,8 +21,8 @@
     $page.url.searchParams.delete('token');
     window.history.replaceState({}, '', $page.url.toString());
 
-	lookupData();
-    lookupIssuer();
+	lookupData()
+	.then(lookupIssuer)
 
 	$: {
 		if (pubkey) if (!kit && wallettype) setupKit(wallettype);
@@ -41,18 +42,23 @@
 		localStorage.setItem('wallettype', WalletType[type]);
 	}
 	async function lookupData() {
-		const res: any = await fetch(`https://assets.rpciege.com/${packs[$page.params.id]}.json`).then(
-			(res) => res.json()
-		);
+		try {
+			const res: any = await fetch(`https://assets.rpciege.com/${packs[$page.params.id]}.json`)
+			.then((res) => res.json());
 
-		if (res?.code) metadata = res;
+			if (res?.code) 
+				metadata = res
+			else throw null
+		} catch {
+			metadata = null
+		}
 	}
     async function lookupIssuer() {
-        if (!token)
+		if (!metadata?.code)
             return
 
-        const payload = JSON.parse(atob(token.split('.')[1]))
-        const issuer_res: any = await fetch(`${horizon_url}/accounts/${payload?.issuer}`).then((res) => res.json())
+		const issuer = await deriveNFTIssuerClient(metadata?.code)
+        const issuer_res: any = await fetch(`${horizon_url}/accounts/${issuer}`).then((res) => res.json())
 
         if (issuer_res?.id)
             claimed = true
@@ -167,7 +173,7 @@
 					href={discordUrl}>Unlock your NFT with Discord</a
 				>
 			{/if}
-		{:else}
+		{:else if metadata === null}
 			<h1 class="text-5xl">Not Found</h1>
 		{/if}
 	</div>

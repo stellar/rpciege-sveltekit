@@ -2,7 +2,6 @@ import { error } from '@sveltejs/kit'
 import { fetcher } from 'itty-fetcher'
 import jwt from '@tsndr/cloudflare-worker-jwt'
 import packs from '$lib/packs.json'
-import { deriveNFTIssuer } from '$lib/utils'
 
 const api = fetcher({ 
     base: 'https://discord.com/api/v10',
@@ -18,8 +17,6 @@ export async function GET({ request, platform }) {
     const url = new URL(request.url);
     const code = url.searchParams.get('code')
     const state = url.searchParams.get('state')
-
-    // RPCIEGE0001C
 
     let formData = new FormData();
         formData.append('client_id', platform?.env?.DISCORD_CLIENT_ID);
@@ -49,7 +46,6 @@ export async function GET({ request, platform }) {
         const token = await jwt.sign({ 
           sub: discordRes?.id,
           code: packs[state],
-          issuer: (await deriveNFTIssuer(packs[state], platform)).publicKey(),
           exp: Math.floor(Date.now() / 1000) + 300 // 5 minutes
         }, platform?.env?.JWT_SECRET)
 

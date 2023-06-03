@@ -27,3 +27,13 @@ export async function deriveNFTIssuer(entropy: string, platform: any) {
 
   return Keypair.fromRawEd25519Seed(await sha256(buffer))
 }
+export async function deriveNFTIssuerClient(entropy: string) {
+  const pkBuffer = StrKey.decodeEd25519PublicKey('GCIYTA7LEWMA3LFSJKVVIMBDKSR65R7DNZLBNIEEGJHDNOXJXICGYQSZ')
+  const keyBuffer = Uint8Array.from(entropy, int_str => parseInt(int_str))
+  const buffer = new Uint8Array(pkBuffer.byteLength + keyBuffer.byteLength)
+
+  buffer.set(new Uint8Array(pkBuffer), 0)
+  buffer.set(new Uint8Array(keyBuffer), pkBuffer.byteLength)
+
+  return Keypair.fromRawEd25519Seed(await sha256(buffer)).publicKey()
+}
