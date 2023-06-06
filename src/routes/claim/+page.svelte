@@ -213,6 +213,9 @@
         claiming_posters = false
     }
   }
+  function swapSrc(e: any) {
+    e.target.src = './placeholder.png'
+  }
 </script>
 
 <div class="bg-white flex flex-col items-start min-h-screen p-4">
@@ -276,21 +279,33 @@
       <!-- Claimable Packs -->
       {#if Object.keys(packs).length}
         {#each Object.entries(packs) as [key, cards]}
-          <ul class="gtm-trigger flex mb-4 cursor-pointer [&>li]:hover:!translate-x-0" style:min-width="400px" on:click={() => claimClaimableBalance(cards, key)}>
-            <li class="relative z-10">
-              <img class="relative" style:left="-0.5rem" style:top="-0.5rem" style:width="150px" src={`./pack${Number(key.split('_')[1])}.png`}>
-            </li>
-
-            {#each cards as card, i2}
-              <li class="relative flex items-start" style:transition="transform 250ms" style:width="1rem" style:height="1rem" style:top="{`calc(0.5rem * ${i2} + 1rem)`}" style:transform={`translateX(calc(-1rem * ${i2} - 150px + 1rem))`} >
-                <img class="relative h-[150px] drop-shadow max-w-none" src={`https://assets.rpciege.com/${card.code}.jpg`}>
-
-                {#if i2 === cards.length - 1}
-                  <button class="relative bg-black text-white rounded px-3 py-1 self-start ml-2">{claiming_packs?.[key] ? '...' : 'Claim'}</button>
-                {/if}
+          {#if cards.length > 1}
+            <!-- svelte-ignore a11y-click-events-have-key-events -->
+            <ul class="gtm-trigger flex mb-4 cursor-pointer [&>li]:hover:!translate-x-0" style:min-width="400px" on:click={() => claimClaimableBalance(cards, key)}>
+              <li class="relative z-10">
+                <img class="relative" style:left="-0.5rem" style:top="-0.5rem" style:width="150px" src={`./pack${Number(key.split('_')[1])}.png`}>
               </li>
-            {/each}
-          </ul>
+
+              {#each cards as card, i2}
+                <li class="relative flex items-start" style:transition="transform 250ms" style:width="1rem" style:height="1rem" style:top="{`calc(0.5rem * ${i2} + 1rem)`}" style:transform={`translateX(calc(-1rem * ${i2} - 150px + 1rem))`} >
+                  <img class="relative h-[150px] drop-shadow max-w-none" src={`https://assets.rpciege.com/${card.code}.jpg`}>
+
+                  {#if i2 === cards.length - 1}
+                    <button class="relative bg-black text-white rounded px-3 py-1 self-start ml-2">{claiming_packs?.[key] ? '...' : 'Claim'}</button>
+                  {/if}
+                </li>
+              {/each}
+            </ul>
+          {:else}
+            <ul class="gtm-trigger flex mb-4 cursor-pointer" on:click={() => claimClaimableBalance(cards, key)}>
+              {#each cards as card}
+                <li class="flex items-start" >
+                  <img class="h-[150px] drop-shadow max-w-none" src={`https://assets.rpciege.com/${card.code}.jpg`} on:error={(e) => swapSrc(e)}>
+                  <button class="bg-black text-white rounded px-3 py-1 self-start ml-2">{claiming_packs?.[key] ? '...' : 'Claim'}</button>
+                </li>
+              {/each}
+            </ul>
+          {/if}
         {/each}
       {/if}
     {/if}
