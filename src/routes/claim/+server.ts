@@ -62,7 +62,7 @@ export async function POST({ request, platform }) {
   }
 
   if (!inToken)
-    throw error(401, { message: 'Missing token' })  
+    throw error(400, { message: 'Missing token' })  
 
   if (!await jwt.verify(inToken, platform?.env?.JWT_SECRET))
     throw error(401, { message: 'Invalid token' })
@@ -73,7 +73,7 @@ export async function POST({ request, platform }) {
     const transaction = new Transaction(tx, networkPassphrase);
 
     if (payload.hash !== transaction.hash().toString('hex'))
-      throw error(401, { message: 'Invalid hash' })
+      throw error(400, { message: 'Invalid hash' })
 
     const bumpedTransaction = TransactionBuilder.buildFeeBumpTransaction(
       platform?.env?.RPCIEGE_PK,

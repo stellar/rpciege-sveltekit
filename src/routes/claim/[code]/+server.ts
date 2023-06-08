@@ -7,7 +7,7 @@ export async function POST({ request, platform, params }) {
   let token = request.headers.get('authorization')?.replace('Bearer ', '')
 
   if (!token)
-    throw error(401, { message: 'Missing token' })
+    throw error(400, { message: 'Missing token' })
 
   if (!await jwt.verify(token, platform?.env?.JWT_SECRET))
     throw error(401, { message: 'Invalid token' })

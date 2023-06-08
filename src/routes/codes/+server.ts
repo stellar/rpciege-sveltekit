@@ -6,7 +6,7 @@ export async function GET({ request, platform }) {
   let token = request.headers.get('authorization')?.replace('Bearer ', '')
 
   if (!token)
-    throw error(401, { message: 'Missing token' })
+    throw error(400, { message: 'Missing token' })
 
   if (!await jwt.verify(token, platform?.env?.JWT_SECRET))
     throw error(401, { message: 'Invalid token' })
@@ -21,8 +21,6 @@ export async function GET({ request, platform }) {
       status: await platform?.env?.REFERRAL_CODES.get(code)
     })
   }
-
-  // TODO maybe check if the user still exists and if not flush the localStorage token
 
   return json(codes)
 }

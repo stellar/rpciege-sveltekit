@@ -76,7 +76,10 @@
 					Authorization: `Bearer ${token}`
 				},
 			}).then(async (res) => {
-				if (res.ok) return res.json();
+				if (res.ok) 
+					return res.json();
+				else if (res.status === 401)
+        			localStorage.removeItem('token')
 				throw res;
 			});
 

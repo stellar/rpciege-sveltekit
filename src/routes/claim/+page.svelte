@@ -21,9 +21,6 @@
 
   // GDAYVCINVNUZ57EOCN4FK2VVWGQ3L3NW37L6UJLZCK3C7S7CNSS5EHHG
 
-  // TODO 
-    // implement pack logic into the JSON or TOML so we can very directly build packs off hard data vs dynamically
-
   lookupPacks()
 
   $: {
@@ -77,8 +74,7 @@
         }
 
         else if (balance.asset_code?.startsWith('RPCIEGE')) {
-          // Don't display community cards for now
-          // TODO
+          // TODO display community cards for now
           if (balance.asset_code.substr(-1) === 'C')
             return
 
@@ -109,8 +105,7 @@
     posters = []
     packs = {}
 
-    // TODO unique by asset code
-
+    // TODO filter by unique by asset code
     poster_res?._embedded?.records.forEach((record: any) => {
       const [code, issuer] = record.asset.split(':')
 
@@ -183,6 +178,8 @@
       }).then(async (res) => {
         if (res.ok)
           return res.json()
+        else if (res.status === 401)
+          localStorage.removeItem('token')
         throw res
       })
 

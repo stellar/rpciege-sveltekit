@@ -59,6 +59,9 @@
               copied: false
             }
           })
+        } else {
+          if (res.status === 401)
+            localStorage.removeItem('token')
         }
       })
     }
@@ -109,7 +112,9 @@
     .then(async (res) => {
       if (res.ok)
         return
-      else throw await res.json()
+      else if (res.status === 401)
+        localStorage.removeItem('token')
+      throw await res.json()
     })
     .then(() => {
       codes = codes.map((codeObject, i) => {

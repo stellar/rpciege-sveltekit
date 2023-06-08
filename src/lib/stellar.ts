@@ -60,8 +60,4 @@ export async function submitClaimableBalance(index: number, referral: string, pu
       await platform?.env?.REFERRAL_CODES.delete(referral)
     } catch {}
   })
-  .catch((err) => {
-    console.error(err)
-    throw err
-  })
 }
