@@ -279,7 +279,7 @@
       <!-- Claimable Packs -->
       {#if Object.keys(packs).length}
         {#each Object.entries(packs) as [key, cards]}
-          {#if cards.length > 1}
+          <!-- {#if cards.length > 1} -->
             <!-- svelte-ignore a11y-click-events-have-key-events -->
             <ul class="gtm-trigger flex mb-4 cursor-pointer [&>li]:hover:!translate-x-0" style:min-width="400px" on:click={() => claimClaimableBalance(cards, key)}>
               <li class="relative z-10">
@@ -296,7 +296,7 @@
                 </li>
               {/each}
             </ul>
-          {:else}
+          <!-- {:else}
             <ul class="gtm-trigger flex mb-4 cursor-pointer" on:click={() => claimClaimableBalance(cards, key)}>
               {#each cards as card}
                 <li class="flex items-start" >
@@ -305,7 +305,7 @@
                 </li>
               {/each}
             </ul>
-          {/if}
+          {/if} -->
         {/each}
       {/if}
     {/if}
