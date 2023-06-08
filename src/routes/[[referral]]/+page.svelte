@@ -105,7 +105,7 @@
     fetch(`/claim/${code}`, {
       method: 'POST',
       headers: {
-        'Authorization': `Bearer ${token}` // TODO if token authorization fails remove the token from localstorage
+        'Authorization': `Bearer ${token}`
       },
       body: JSON.stringify({ pubkey }),
     })
