@@ -74,7 +74,14 @@
         }
 
         else if (balance.asset_code?.startsWith('RPCIEGE')) {
-          // TODO display community cards for now
+          // Handle common cards by resetting them to dynamic cards
+          if (balance.asset_code.substr(-1) === 'c') {
+            balance.asset_code = balance.asset_code
+            .replace(/[a-z]/g, '')
+            .replace('RPCIEGE', 'RPCIEGE0')
+          }
+
+          // TODO display community cards
           if (balance.asset_code.substr(-1) === 'C')
             return
 
@@ -106,6 +113,7 @@
     packs = {}
 
     // TODO filter by unique by asset code
+
     poster_res?._embedded?.records.forEach((record: any) => {
       const [code, issuer] = record.asset.split(':')
 
@@ -117,7 +125,15 @@
     })
 
     pack_res?._embedded?.records.forEach((record: any) => {
-      const [code, issuer] = record.asset.split(':')
+      let [code, issuer] = record.asset.split(':')
+
+      // Handle common cards by resetting them to dynamic cards
+      if (code.substr(-1) === 'c') {
+        code = code
+          .replace(/[a-z]/g, '')
+          .replace('RPCIEGE', 'RPCIEGE0')
+      }
+
       const setPacksPack = setPacks.find(([, cards]) => cards.includes(code))
       const setPacksPackKey = setPacksPack?.[0] || 'pack_0'
 
