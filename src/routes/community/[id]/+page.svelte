@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { dev } from '$app/environment';
 	import { page } from '$app/stores';
-	import packs from '$lib/packs.json';
+	import community_cards from '$lib/community_cards.json';
 	import { deriveNFTIssuerClient } from '$lib/utils';
 	import { StellarWalletsKit, WalletNetwork, WalletType } from 'stellar-wallets-kit';
 
@@ -128,7 +128,7 @@
 
 			<video
 				class="mb-6 rounded-lg"
-				src={`https://assets.rpciege.com/${packs[$page.params.id]}.mp4`}
+				src={`https://assets.rpciege.com/${community_cards[$page.params.id]}.mp4`}
 				width="400"
 				muted
 				autoplay

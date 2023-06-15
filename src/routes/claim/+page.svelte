@@ -1,11 +1,11 @@
 <script lang="ts">
 	import { dev } from '$app/environment';
   import { StellarWalletsKit, WalletNetwork, WalletType } from 'stellar-wallets-kit';
+  import packCards from '$lib/pack_cards.json';
 
   let kit: StellarWalletsKit
   let pubkey: string|null = localStorage.getItem('pubkey')
   let wallettype: WalletType|null = localStorage.getItem('wallettype') as WalletType
-  let setPacks: [string, string][]
 
   let claiming_posters: boolean = false
   let claimed_posters: any[] = []
@@ -21,10 +21,8 @@
 
   // GDAYVCINVNUZ57EOCN4FK2VVWGQ3L3NW37L6UJLZCK3C7S7CNSS5EHHG
 
-  lookupPacks()
-
   $: {
-    if (setPacks && pubkey) {
+    if (pubkey) {
       lookupAccount()
       lookupClaimableBalances()
 
@@ -85,18 +83,18 @@
           if (balance.asset_code.substr(-1) === 'C')
             return
 
-          const setPacksPack = setPacks.find(([, cards]) => cards.includes(balance.asset_code))
-          const setPacksPackKey = setPacksPack?.[0] || 'pack_0'
+          const packCardsIndex = packCards.findIndex((pack) => pack.includes(balance.asset_code))
+          const packCardsKey = packCardsIndex > -1 ? `pack_${packCardsIndex + 1}` : 'pack_0'
           const pack = {
               ...balance,
               code: balance.asset_code,
               issuer: balance.asset_issuer
             }
 
-          if (claimed_packs?.[setPacksPackKey]) {
-            claimed_packs[setPacksPackKey].push(pack)
+          if (claimed_packs?.[packCardsKey]) {
+            claimed_packs[packCardsKey].push(pack)
           } else {
-            claimed_packs[setPacksPackKey] = [pack]
+            claimed_packs[packCardsKey] = [pack]
           }
         }
 
@@ -134,8 +132,8 @@
           .replace('RPCIEGE', 'RPCIEGE0')
       }
 
-      const setPacksPack = setPacks.find(([, cards]) => cards.includes(code))
-      const setPacksPackKey = setPacksPack?.[0] || 'pack_0'
+      const packCardsIndex = packCards.findIndex((pack) => pack.includes(code))
+      const packCardsKey = packCardsIndex > -1 ? `pack_${packCardsIndex + 1}` : 'pack_0'
 
       const pack = {
         ...record,
@@ -143,21 +141,15 @@
         issuer,
       }
 
-      if (packs?.[setPacksPackKey]) {
-        packs[setPacksPackKey].push(pack)
+      if (packs?.[packCardsKey]) {
+        packs[packCardsKey].push(pack)
       } else {
-        packs[setPacksPackKey] = [pack]
+        packs[packCardsKey] = [pack]
       }
     })
 
     posters = posters
     packs = packs
-  }
-  async function lookupPacks() {
-    const packs: any = await fetch('https://futurenet.rpciege.com/packs.json').then((res) => res.json())
-
-    if (Object.keys(packs).length)
-      setPacks = Object.entries(packs)
   }
   async function claimClaimableBalance(records: any, key?: string) {
     if (key)
@@ -211,8 +203,10 @@
         console.log(res.id)
         lookupAccount()
         lookupClaimableBalances()
-      } else
+      } else {
+        console.error(res)
         alert(JSON.stringify(res, null, 2))
+      }
     } 
 
     catch(err) {

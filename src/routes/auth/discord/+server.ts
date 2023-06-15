@@ -1,7 +1,7 @@
 import { error } from '@sveltejs/kit'
 import { fetcher } from 'itty-fetcher'
 import jwt from '@tsndr/cloudflare-worker-jwt'
-import packs from '$lib/packs.json'
+import community_cards from '$lib/community_cards.json'
 
 const api = fetcher({ 
     base: 'https://discord.com/api/v10',
@@ -45,7 +45,7 @@ export async function GET({ request, platform }) {
 
         const token = await jwt.sign({ 
           sub: discordRes?.id,
-          code: packs[state],
+          code: community_cards[state],
           exp: Math.floor(Date.now() / 1000) + 300 // 5 minutes
         }, platform?.env?.JWT_SECRET)
 
