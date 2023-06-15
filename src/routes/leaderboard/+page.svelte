@@ -44,6 +44,7 @@
     <table class="bg-white text-left [&>thead>tr>th]:border [&>thead>tr>th]:border-black [&>thead>tr>th]:px-2 [&>thead>tr>th]:py-1 [&>tbody>tr>td]:px-2 [&>tbody>tr>td]:border">
         <thead class="bg-black text-white">
             <tr>
+                <th>#</th>
                 {#if leaderboard.length}
                     {#each Object.keys(leaderboard[0]) as key}
                         <th class="capitalize">{key.replace(/_/gmi, ' ')}</th>
@@ -55,8 +56,9 @@
         </thead>
         <tbody>
             {#if leaderboard.length}
-                {#each leaderboard as {address, ...fields}}
+                {#each leaderboard as {address, ...fields}, i}
                     <tr>
+                        <td>{i + 1}</td>
                         <td>{address.substring(0, 5)}...{address.substr(-5)}</td>
                         {#each Object.entries(fields) as [_, value]}
                             <td>{value}</td>
@@ -65,6 +67,7 @@
                 {/each}
             {:else}
                 <tr>
+                    <td>N/A</td>
                     <td>N/A</td>
                     <td>N/A</td>
                 </tr>
