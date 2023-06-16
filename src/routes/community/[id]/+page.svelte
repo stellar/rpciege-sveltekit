@@ -43,7 +43,7 @@
 	}
 	async function lookupData() {
 		try {
-			const res: any = await fetch(`https://assets.rpciege.com/${packs[$page.params.id]}.json`)
+			const res: any = await fetch(`https://assets.rpciege.com/${community_cards[$page.params.id]}.json`)
 			.then((res) => res.json());
 
 			if (res?.code) 
