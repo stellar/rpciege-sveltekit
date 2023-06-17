@@ -1,4 +1,6 @@
 <script lang="ts">
+    import { page } from '$app/stores'
+
     const skirmishes = new Array(7)
     const fields = [
         'timestamp',
@@ -11,10 +13,15 @@
     ]
 
     let leaderboard: any[] = []
-    let skirmish = skirmishes.length
-    let field = 'timestamp'
+    let skirmish = Number($page.url.searchParams.get('skirmish') || skirmishes.length)
+    let field = $page.url.searchParams.get('field') || 'timestamp'
     
-    lookupLeaderboard()
+    $: {
+        updateURLParams('field', field)
+        updateURLParams('skirmish', skirmish.toString())
+    }
+    
+    lookupLeaderboard()    
 
     async function lookupLeaderboard() {
         const resLeaderboard: any = await fetch(`https://futurenet.rpciege.com/leaderboard?skirmish=${skirmish}&field=${field}`).then((res) => res.json())
@@ -23,6 +30,16 @@
             leaderboard = resLeaderboard
         else
             leaderboard = []
+    }
+    function updateURLParams(key: string, value: string) {
+        let url = new URL(location.href)
+
+        if ($page.url.searchParams.get(key) !== value)
+            url.searchParams.set(key, value)
+
+        url.search = url.searchParams.toString()
+
+        history.pushState('', '', url.href)
     }
 </script>
 
