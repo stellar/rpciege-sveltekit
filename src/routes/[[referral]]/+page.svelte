@@ -194,8 +194,8 @@
             </a>
             →
             {#if status === 'unused'} 
-              <span class="mx-2">rpciege.com/{code}</span> 
-              <button class="uppercase text-xs bg-red py-1 px-2 rounded text-yellow {copied ? '!text-black' : ''}" style:background-color={copied ? "#78c484" : ''} on:click={() => copyCode(`https://rpciege.com/${code}`,code)}>{copied ? '✘ Copied' : 'Copy'}</button>
+              <span class="mx-2">{location.host}/{code}</span> 
+              <button class="uppercase text-xs bg-red py-1 px-2 rounded text-yellow {copied ? '!text-black' : ''}" style:background-color={copied ? "#78c484" : ''} on:click={() => copyCode(`${location.origin}/${code}`,code)}>{copied ? '✘ Copied' : 'Copy'}</button>
             {:else if status === 'unclaimed'}
               <span class="underline line-through mx-2">{code}</span> 
               <button class="uppercase text-xs bg-black py-1 px-2 rounded text-yellow" on:click={() => claimNFT(code)}>{claiming ? '...' : 'Unlock'}</button>

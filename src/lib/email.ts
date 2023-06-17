@@ -30,7 +30,7 @@ export async function sendCode(email: string, id: string, referral: string | und
         subject: 'Your RPCiege enlistment code',
         content: [{
           type: 'text/plain',
-          value: `Your RPCiege enlistment code is ${code}`
+          value: `${code} is your RPCiege enlistment code`
         }],
         from: { email: 'noreply@rpciege.com' }
       },
