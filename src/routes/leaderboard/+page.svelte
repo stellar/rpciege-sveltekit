@@ -1,7 +1,7 @@
 <script lang="ts">
     import { page } from '$app/stores'
 
-    const skirmishes = new Array(8)
+    const skirmishes = new Array(9)
     const fields = [
         'timestamp',
         'transaction_bytes',
