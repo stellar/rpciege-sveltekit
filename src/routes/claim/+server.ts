@@ -153,8 +153,6 @@ export async function POST({ request, platform }) {
       exp: Math.floor(Date.now() / 1000) + 60 // 1 minute
     }, platform?.env?.JWT_SECRET)
 
-    console.log(outToken, signers.length);
-
     return json({
       token: outToken,
       xdr: transaction.toXDR(),
