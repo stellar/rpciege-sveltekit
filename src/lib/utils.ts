@@ -1,5 +1,7 @@
 import { Keypair, StrKey } from "stellar-base"
 
+const utf8Encoder = new TextEncoder();
+
 export async function sha256(data: string|Uint8Array, digest: "hex"|null = null): Promise<string|Uint8Array> {
   const hash = new Uint8Array(
     await crypto.subtle.digest(
@@ -18,8 +20,16 @@ export async function sha256(data: string|Uint8Array, digest: "hex"|null = null)
 }
 
 export async function deriveNFTIssuer(entropy: string, platform: any) {
+  let keyBuffer
+
   const pkBuffer = StrKey.decodeEd25519PublicKey(platform?.env?.RPCIEGE_PK)
-  const keyBuffer = Uint8Array.from(entropy, int_str => parseInt(int_str))
+
+  if (entropy.charAt(entropy.length - 1) === 'F') { // this is the better way to derive entropy, but sadly we started using it too late
+    keyBuffer = utf8Encoder.encode(entropy);
+  } else {
+    keyBuffer = Uint8Array.from(entropy, int_str => parseInt(int_str))
+  }
+
   const buffer = new Uint8Array(pkBuffer.byteLength + keyBuffer.byteLength)
 
   buffer.set(new Uint8Array(pkBuffer), 0)
@@ -28,8 +38,16 @@ export async function deriveNFTIssuer(entropy: string, platform: any) {
   return Keypair.fromRawEd25519Seed(await sha256(buffer))
 }
 export async function deriveNFTIssuerClient(entropy: string) {
+  let keyBuffer
+
   const pkBuffer = StrKey.decodeEd25519PublicKey('GCIYTA7LEWMA3LFSJKVVIMBDKSR65R7DNZLBNIEEGJHDNOXJXICGYQSZ')
-  const keyBuffer = Uint8Array.from(entropy, int_str => parseInt(int_str))
+
+  if (entropy.charAt(entropy.length - 1) === 'F') { // this is the better way to derive entropy, but sadly we started using it too late
+    keyBuffer = utf8Encoder.encode(entropy);
+  } else {
+    keyBuffer = Uint8Array.from(entropy, int_str => parseInt(int_str))
+  }
+
   const buffer = new Uint8Array(pkBuffer.byteLength + keyBuffer.byteLength)
 
   buffer.set(new Uint8Array(pkBuffer), 0)
