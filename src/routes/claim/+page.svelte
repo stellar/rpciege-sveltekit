@@ -73,11 +73,11 @@
 
         else if (balance.asset_code?.startsWith('RPCIEGE')) {
           // Handle common cards by resetting them to dynamic cards
-          if (balance.asset_code.substr(-1) === 'c') {
-            balance.asset_code = balance.asset_code
-            .replace(/[a-z]/g, '')
-            .replace('RPCIEGE', 'RPCIEGE0')
-          }
+          // if (balance.asset_code.substr(-1) === 'c') {
+          //   balance.asset_code = balance.asset_code
+          //   .replace(/[a-z]/g, '')
+          //   .replace('RPCIEGE', 'RPCIEGE0')
+          // }
 
           // TODO display community cards
           if (balance.asset_code.substr(-1) === 'C')
@@ -126,11 +126,11 @@
       let [code, issuer] = record.asset.split(':')
 
       // Handle common cards by resetting them to dynamic cards
-      if (code.substr(-1) === 'c') {
-        code = code
-          .replace(/[a-z]/g, '')
-          .replace('RPCIEGE', 'RPCIEGE0')
-      }
+      // if (code.substr(-1) === 'c') {
+      //   code = code
+      //     .replace(/[a-z]/g, '')
+      //     .replace('RPCIEGE', 'RPCIEGE0')
+      // }
 
       const packCardsIndex = packCards.findIndex((pack) => pack.includes(code))
       const packCardsKey = packCardsIndex > -1 ? `pack_${packCardsIndex + 1}` : 'pack_0'
@@ -220,8 +220,13 @@
         claiming_posters = false
     }
   }
-  function swapSrc(e: any) {
-    e.target.src = './placeholder.png'
+  function processAssetCode(code: string) {
+    if (code.substr(-1) === 'c')
+      return code
+      .replace(/[a-z]/g, '')
+      .replace('RPCIEGE', 'RPCIEGE0')
+
+    return code
   }
 </script>
 
@@ -275,7 +280,7 @@
             {#each cards as card, i2}
               <li class="relative flex items-start" style:transition="transform 250ms" style:width="1rem" style:height="1rem" style:top="{`calc(0.5rem * ${i2} + 1rem)`}" style:transform={`translateX(calc(-1rem * ${i2} - 150px + 1rem))`} >
                 <a href={`https://assets.rpciege.com/${card.code}.mp4`}>
-                  <img class="relative h-[150px] drop-shadow max-w-none" src={`https://assets.rpciege.com/${card.code}.jpg`}>
+                  <img class="relative h-[150px] drop-shadow max-w-none" src={`https://assets.rpciege.com/${processAssetCode(card.code)}.jpg`}>
                 </a>
               </li>
             {/each}
@@ -295,7 +300,7 @@
 
               {#each cards as card, i2}
                 <li class="relative flex items-start" style:transition="transform 250ms" style:width="1rem" style:height="1rem" style:top="{`calc(0.5rem * ${i2} + 1rem)`}" style:transform={`translateX(calc(-1rem * ${i2} - 150px + 1rem))`} >
-                  <img class="relative h-[150px] drop-shadow max-w-none" src={`https://assets.rpciege.com/${card.code}.jpg`}>
+                  <img class="relative h-[150px] drop-shadow max-w-none" src={`https://assets.rpciege.com/${processAssetCode(card.code)}.jpg`}>
 
                   {#if i2 === cards.length - 1}
                     <button class="relative bg-black text-white rounded px-3 py-1 self-start ml-2">{claiming_packs?.[key] ? '...' : 'Claim'}</button>
@@ -307,7 +312,7 @@
             <ul class="gtm-trigger flex mb-4 cursor-pointer" on:click={() => claimClaimableBalance(cards, key)}>
               {#each cards as card}
                 <li class="flex items-start" >
-                  <img class="h-[150px] drop-shadow max-w-none" src={`https://assets.rpciege.com/${card.code}.jpg`} on:error={(e) => swapSrc(e)}>
+                  <img class="h-[150px] drop-shadow max-w-none" src={`https://assets.rpciege.com/${processAssetCode(card.code)}.jpg`} on:error={(e) => swapSrc(e)}>
                   <button class="bg-black text-white rounded px-3 py-1 self-start ml-2">{claiming_packs?.[key] ? '...' : 'Claim'}</button>
                 </li>
               {/each}

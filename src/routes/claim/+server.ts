@@ -13,9 +13,10 @@ export async function POST({ request, platform }) {
   const { 
     tx,
     pubkey,
-    records
+    records,
+    codes
   }: any = await request.json()
-  
+
   if (
     pubkey 
     && records?.length
@@ -54,6 +55,105 @@ export async function POST({ request, platform }) {
       hash: transaction.hash().toString('hex'),
       exp: Math.floor(Date.now() / 1000) + 60 // 1 minute
     }, platform?.env?.JWT_SECRET)
+
+    return json({
+      token: outToken,
+      xdr: transaction.toXDR(),
+    })
+  }
+
+  if ( // Fortress Cards
+    pubkey 
+    && codes?.length
+  ) {
+    const signers = []
+    const account: any = await fetch(`${horizon_url}/accounts/${pubkey}`).then((res) => res.json())
+    const source = new Account(pubkey, account?.sequence)
+
+    let transaction: Transaction|TransactionBuilder = new TransactionBuilder(source, { 
+      fee: (1_000_000).toString(), 
+      networkPassphrase: dev ? Networks.TESTNET : Networks.PUBLIC
+    })
+
+    for (const code of codes) {
+      const issuerKeypair = await deriveNFTIssuer(code, platform)
+      const issuerPublicKey = issuerKeypair.publicKey()
+      const asset = new Asset(code, issuerPublicKey)
+
+      const account: any = await fetch(`${horizon_url}/accounts/${issuerPublicKey}`)
+      .then((res) => res.json())
+      .then((res: any) => res.status !== 200 ? null : res)
+      .catch(() => null)
+
+      if (!account) {
+        // Create account
+        transaction
+        .addOperation(Operation.beginSponsoringFutureReserves({
+          sponsoredId: issuerPublicKey,
+          source: platform?.env?.RPCIEGE_PK
+        }))
+        .addOperation(Operation.createAccount({
+          destination: issuerPublicKey,
+          startingBalance: '0',
+          source: platform?.env?.RPCIEGE_PK
+        }))
+        .addOperation(Operation.setOptions({
+          homeDomain: 'fastcheapandoutofcontrol.com',
+          setFlags: 10 as AuthFlag,
+          masterWeight: 0,
+          signer: {
+            ed25519PublicKey: platform?.env?.RPCIEGE_PK,
+            weight: 1
+          },
+          source: issuerPublicKey
+        }))
+        .addOperation(Operation.manageData({
+          name: 'dataurl',
+          value: `assets.rpciege.com/${code}.json`,
+          source: issuerPublicKey
+        }))
+        .addOperation(Operation.endSponsoringFutureReserves({
+          source: issuerPublicKey
+        }))
+
+        signers.push(issuerKeypair)
+      }
+
+      // Issue NFTs
+      transaction
+      .addOperation(Operation.beginSponsoringFutureReserves({
+        sponsoredId: pubkey,
+        source: platform?.env?.RPCIEGE_PK
+      }))
+      .addOperation(Operation.changeTrust({
+        asset,
+        limit: '0.0000001',
+      }))
+      .addOperation(Operation.payment({
+        destination: pubkey,
+        asset,
+        amount: '0.0000001',
+        source: issuerPublicKey
+      }))
+      .addOperation(Operation.endSponsoringFutureReserves({}))
+    }
+
+    transaction = transaction
+    .setTimeout(30)
+    .build()
+
+    for (const signer of signers) {
+      transaction.sign(signer)
+    }
+
+    transaction.sign(Keypair.fromSecret(platform?.env?.RPCIEGE_SK))
+
+    const outToken = await jwt.sign({ 
+      hash: transaction.hash().toString('hex'),
+      exp: Math.floor(Date.now() / 1000) + 60 // 1 minute
+    }, platform?.env?.JWT_SECRET)
+
+    console.log(outToken, signers.length);
 
     return json({
       token: outToken,

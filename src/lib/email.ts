@@ -27,7 +27,7 @@ export async function sendCode(email: string, id: string, referral: string | und
       '/mail/send', 
       {
         personalizations: [{ to: [{ email }] }],
-        subject: 'Your RPCiege enlistment code',
+        subject: `${code} is your RPCiege enlistment code`,
         content: [{
           type: 'text/plain',
           value: `Your RPCiege enlistment code is ${code}`
