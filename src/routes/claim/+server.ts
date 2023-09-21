@@ -13,9 +13,10 @@ export async function POST({ request, platform }) {
   const { 
     tx,
     pubkey,
-    records
+    records,
+    codes
   }: any = await request.json()
-  
+
   if (
     pubkey 
     && records?.length
@@ -59,6 +60,15 @@ export async function POST({ request, platform }) {
       token: outToken,
       xdr: transaction.toXDR(),
     })
+  }
+
+  if ( // Fortress Cards
+    pubkey 
+    && codes?.length
+  ) { 
+    // create fortress accounts if needed
+    // issuer NFTs
+    // send out the JWT
   }
 
   if (!inToken)
