@@ -11,7 +11,6 @@
 
 	let metadata: any = null;
 	let claiming: boolean = false;
-	let claimed: boolean = false;
 
 	const horizon_url = dev ? 'https://horizon-testnet.stellar.org' : 'https://horizon.stellar.org';
 
@@ -37,29 +36,25 @@
 	async function lookupData() {
 		try {
 			for (const code of fortress_cards[$page.params.id]) {
-				const res: any = await fetch(`https://assets.rpciege.com/${code}.json`).then((res) =>
-					res.json()
-				);
+				const res: any = await fetch(`https://assets.rpciege.com/${code}.json`).then((res) => res.json());
 
 				if (res?.code) {
 					metadata = metadata ?? {};
 					metadata[code] = res;
-				}
-				else throw null;
+				} else throw null;
 			}
 		} catch {
 			metadata = null;
 		}
 	}
 	async function lookupIssuer() {
-		if (!metadata?.code) return;
+		for (const code of fortress_cards[$page.params.id]) {
+			const issuer = await deriveNFTIssuerClient(code);
+			const issuer_res: any = await fetch(`${horizon_url}/accounts/${issuer}`).then((res) => res.json());
 
-		const issuer = await deriveNFTIssuerClient(metadata?.code);
-		const issuer_res: any = await fetch(`${horizon_url}/accounts/${issuer}`).then((res) =>
-			res.json()
-		);
-
-		if (issuer_res?.id) claimed = true;
+			if (issuer_res?.id)
+				metadata[code].claimed = true
+		}
 	}
 	async function claimAsset() {
 		claiming = true;
@@ -124,14 +119,16 @@
 
 			<div class="flex flex-wrap w-[600px] pl-2">
 				{#each fortress_cards[$page.params.id] as code}
-					<div class="mb-6 pr-2 w-1/3">
-						<p class="mb-2">{metadata?.[code]?.name}</p>
-						<img class="rounded-lg" src={`https://assets.rpciege.com/${code}.png`} />
-					</div>
+					{#if !metadata?.[code]?.claimed}
+						<div class="mb-6 pr-2 w-1/3">
+							<p class="mb-2">{metadata?.[code]?.name}</p>
+							<img class="rounded-lg" src={`https://assets.rpciege.com/${code}.png`} />
+						</div>
+					{/if}
 				{/each}
 			</div>
 
-			{#if claimed}
+			{#if fortress_cards[$page.params.id].filter((code) => !metadata?.[code]?.claimed).length === 0}
 				<span class="text-5xl">👍</span>
 			{:else if pubkey}
 				{#if pubkey === $page.params.id}
