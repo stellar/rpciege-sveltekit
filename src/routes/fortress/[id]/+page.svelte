@@ -32,6 +32,7 @@
 		pubkey = await kit.getPublicKey();
 		localStorage.setItem('pubkey', pubkey);
 		localStorage.setItem('wallettype', WalletType[type]);
+		lookupData().then(lookupIssuer);
 	}
 	async function lookupData() {
 		try {
