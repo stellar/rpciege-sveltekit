@@ -82,7 +82,7 @@ export async function POST({ request, platform }) {
 
       const account: any = await fetch(`${horizon_url}/accounts/${issuerPublicKey}`)
       .then((res) => res.json())
-      .then((res: any) => res.status !== 200 ? null : res)
+      .then((res: any) => !!res?.id)
       .catch(() => null)
 
       if (!account) {
