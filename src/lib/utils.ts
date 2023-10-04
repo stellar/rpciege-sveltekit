@@ -37,6 +37,7 @@ export async function deriveNFTIssuer(entropy: string, platform: any) {
 
   return Keypair.fromRawEd25519Seed(await sha256(buffer))
 }
+
 export async function deriveNFTIssuerClient(entropy: string) {
   let keyBuffer
 
