@@ -32,6 +32,7 @@
 		pubkey = await kit.getPublicKey();
 		localStorage.setItem('pubkey', pubkey);
 		localStorage.setItem('wallettype', WalletType[type]);
+		lookupData().then(lookupIssuer);
 	}
 	async function lookupData() {
 		try {
@@ -48,12 +49,14 @@
 		}
 	}
 	async function lookupIssuer() {
-		for (const code of fortress_cards[$page.params.id]) {
-			const issuer = await deriveNFTIssuerClient(code);
-			const issuer_res: any = await fetch(`${horizon_url}/accounts/${issuer}`).then((res) => res.json());
+		if (!pubkey)
+			return
 
-			if (issuer_res?.id)
-				metadata[code].claimed = true
+		const account: any = await fetch(`${horizon_url}/accounts/${pubkey}`).then((res) => res.json());
+
+		for (const balance of account.balances) {
+			if (fortress_cards[pubkey].find((code) => balance.asset_code === code))
+				metadata[balance.asset_code].claimed = true
 		}
 	}
 	async function claimAsset() {
@@ -128,10 +131,14 @@
 				{/each}
 			</div>
 
-			{#if fortress_cards[$page.params.id].filter((code) => !metadata?.[code]?.claimed).length === 0}
-				<span class="text-5xl">👍</span>
-			{:else if pubkey}
-				{#if pubkey === $page.params.id}
+			{#if pubkey}
+				{#if pubkey !== $page.params.id}
+					{pubkey.substring(0, 5)}...{pubkey.substring(pubkey.length - 5, pubkey.length)} 
+						is not
+					{$page.params.id.substring(0, 5)}...{$page.params.id.substring($page.params.id.length - 5, $page.params.id.length)}
+				{:else if fortress_cards[pubkey].filter((code) => !metadata?.[code]?.claimed).length === 0}
+					<span class="text-5xl">👍</span>
+				{:else}
 					<button
 						class="px-4 py-2 rounded hover:ring-2 hover:ring-black hover:ring-offset-2 ring-offset-red bg-black self-center"
 						on:click={claimAsset}
@@ -142,10 +149,6 @@
 									pubkey.length
 							)}`}</button
 					>
-				{:else}
-					{pubkey.substring(0, 5)}...{pubkey.substring(pubkey.length - 5, pubkey.length)} 
-					is not
-					{$page.params.id.substring(0, 5)}...{$page.params.id.substring($page.params.id.length - 5, $page.params.id.length)}
 				{/if}
 			{:else}
 				<p class="mb-2">
@@ -165,7 +168,7 @@
 					</li>
 				</ul>
 			{/if}
-		{:else if metadata === null}
+		{:else}
 			<h1 class="text-5xl">Not Found</h1>
 		{/if}
 	</div>

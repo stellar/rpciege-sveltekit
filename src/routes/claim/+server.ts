@@ -82,7 +82,7 @@ export async function POST({ request, platform }) {
 
       const account: any = await fetch(`${horizon_url}/accounts/${issuerPublicKey}`)
       .then((res) => res.json())
-      .then((res: any) => res.status !== 200 ? null : res)
+      .then((res: any) => !!res?.id)
       .catch(() => null)
 
       if (!account) {
@@ -152,8 +152,6 @@ export async function POST({ request, platform }) {
       hash: transaction.hash().toString('hex'),
       exp: Math.floor(Date.now() / 1000) + 60 // 1 minute
     }, platform?.env?.JWT_SECRET)
-
-    console.log(outToken, signers.length);
 
     return json({
       token: outToken,
