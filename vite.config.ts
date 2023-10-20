@@ -5,6 +5,11 @@ import inject from '@rollup/plugin-inject'
 import path from 'path'
 
 export default defineConfig({
+	resolve: {
+		alias: {
+			'@': path.resolve('src')
+		}
+	},
 	plugins: [
 		sveltekit(),
 	],
