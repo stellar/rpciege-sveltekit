@@ -1,5 +1,5 @@
-name = "rpciege-sveltekit-v2"
-compatibility_date = "2023-10-04"
+name = "rpciege-sveltekit"
+compatibility_date = "2023-10-20"
 
 kv_namespaces = [
   { binding = "EMAILS", id = "9b0b0abb1f7a414d8dc9ac1a4aa06e29", preview_id = "" },
