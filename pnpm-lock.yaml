@@ -4,11 +4,6 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
-dependencies:
-  lodash-es:
-    specifier: ^4.17.21
-    version: 4.17.21
-
 devDependencies:
   '@esbuild-plugins/node-globals-polyfill':
     specifier: ^0.2.3
@@ -64,6 +59,9 @@ devDependencies:
   itty-fetcher:
     specifier: ^0.8.1
     version: 0.8.2
+  lodash-es:
+    specifier: ^4.17.21
+    version: 4.17.21
   miniflare:
     specifier: ^2.14.0
     version: 2.14.1
@@ -2839,7 +2837,7 @@ packages:
 
   /lodash-es@4.17.21:
     resolution: {integrity: sha512-mKnC+QJ9pWVzv+C4/U3rRsHapFfHvQFoFB92e52xeyGMcX6/OlIl78je1u8vePzYZSkkogMPJ2yjxxsb89cxyw==}
-    dev: false
+    dev: true
 
   /lodash.isequal@4.5.0:
     resolution: {integrity: sha512-pDo3lu8Jhfjqls6GkMgpahsF9kCyayhgykjyLMNFTKWrpVdAQtYyB4muAMWozBB4ig/dtWAmsMxLEI8wuz+DYQ==}
