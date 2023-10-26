@@ -59,6 +59,9 @@ devDependencies:
   itty-fetcher:
     specifier: ^0.8.1
     version: 0.8.2
+  lodash-es:
+    specifier: ^4.17.21
+    version: 4.17.21
   miniflare:
     specifier: ^2.14.0
     version: 2.14.1
@@ -78,8 +81,8 @@ devDependencies:
     specifier: ^0.2.1
     version: 0.2.1
   stellar-base:
-    specifier: 9.0.0-soroban.1
-    version: 9.0.0-soroban.1(buffer@6.0.3)
+    specifier: 9.0.0-soroban.3
+    version: 9.0.0-soroban.3(buffer@6.0.3)
   stellar-wallets-kit:
     specifier: github:Creit-Tech/Stellar-Wallets-Kit
     version: github.com/Creit-Tech/Stellar-Wallets-Kit/2566aedff5887fc0b3bf6d9877cd2b069c46d92f
@@ -1680,8 +1683,9 @@ packages:
       randombytes: 2.1.0
     dev: true
 
-  /browserify-sign@4.2.1:
-    resolution: {integrity: sha512-/vrA5fguVAKKAVTNJjgSm1tRQDHUU6DbwO9IROu/0WAzC8PKhucDSh18J0RMvVeHAn5puMd+QHC2erPRNf8lmg==}
+  /browserify-sign@4.2.2:
+    resolution: {integrity: sha512-1rudGyeYY42Dk6texmv7c4VcQ0EsvVbLwZkA+AQB7SxvXxmcD93jcHie8bzecJ+ChDlmAm2Qyu0+Ccg5uhZXCg==}
+    engines: {node: '>= 4'}
     dependencies:
       bn.js: 5.2.1
       browserify-rsa: 4.1.0
@@ -1930,7 +1934,7 @@ packages:
     resolution: {integrity: sha512-fz4spIh+znjO2VjL+IdhEpRJ3YN6sMzITSBijk6FK2UvTqruSQW+/cCZTSNsMiZNvUeq0CqurF+dAbyiGOY6Wg==}
     dependencies:
       browserify-cipher: 1.0.1
-      browserify-sign: 4.2.1
+      browserify-sign: 4.2.2
       create-ecdh: 4.0.4
       create-hash: 1.2.0
       create-hmac: 1.1.7
@@ -2829,6 +2833,10 @@ packages:
     engines: {node: '>=10'}
     dependencies:
       p-locate: 5.0.0
+    dev: true
+
+  /lodash-es@4.17.21:
+    resolution: {integrity: sha512-mKnC+QJ9pWVzv+C4/U3rRsHapFfHvQFoFB92e52xeyGMcX6/OlIl78je1u8vePzYZSkkogMPJ2yjxxsb89cxyw==}
     dev: true
 
   /lodash.isequal@4.5.0:
@@ -3751,8 +3759,8 @@ packages:
     resolution: {integrity: sha512-KGzahc7puUKkzyMt+IqAep+TVNbKP+k2Lmwhub39m1AsTSkaDutx56aDCo+HLDzf/D26BIHTJWNiTG1KAJiQCg==}
     dev: true
 
-  /stellar-base@9.0.0-soroban.1(buffer@6.0.3):
-    resolution: {integrity: sha512-oLqE3kNFMo6Hhd9VgBN8jMfaw9RypVqYmdCDDn3NufxIZW92bP7Jq0oPf28N/YO7DYOT7oqptqf7+DVDcwvfZg==}
+  /stellar-base@9.0.0-soroban.3(buffer@6.0.3):
+    resolution: {integrity: sha512-PaeIrspURhbDA0FSkH/mu/lQxxSYPplOdhIcW4VqmKW2kMm/ADXjyQr1y4tFIfv8EpIe5DCJ6sfIyadIoPd8HQ==}
     dependencies:
       base32.js: 0.1.0
       bignumber.js: 9.1.2

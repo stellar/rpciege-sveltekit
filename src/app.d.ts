@@ -7,8 +7,10 @@ declare global {
 		// interface PageData {}
 		interface Platform {
 			env?: {
+				NFTS: KVNamespace;
 				EMAILS: KVNamespace;
 				REFERRAL_CODES: KVNamespace;
+				GIVEAWAY_CODES: KVNamespace;
 
 				SG_SECRET: string;
 				SG_VALIDATION: string;
