@@ -62,16 +62,18 @@
 </script>
 
 <div
-	class="min-w-screen min-h-screen bg-pamphlet flex justify-center font-merriweather text-fog text-[18px] overflow-hidden relative"
+	class="min-w-screen min-h-screen w-full bg-pamphlet flex justify-center font-merriweather text-fog text-[18px] overflow-hidden relative px-12 max-[1000px]:text-[16px] max-[850px]:flex-col max-[650px]:px-6"
 >
-	<div
-		class="max-w-[1100px] w-full mt-[210px] mb-[120px] flex flex-col items-start [&>p]:leading-[2em] mx-12"
-	>
-		<img class="max-w-[720px] pointer-events-none" src="./giveway.png" />
+	<img class="absolute z-10 top-0 right-[-175px] self-start max-w-[640px] pointer-events-none max-[1300px]:right-[-250px] max-[1150px]:right-[-400px] max-[850px]:static max-[850px]:max-w-[250px] max-[850px]:mt-[25px] max-[850px]:mx-12" src="./card-and-dice.png" />
 
-		<div class="flex items-center mt-[36px] mb-3 max-w-[800px]">
+	<div
+		class="max-w-[1100px] w-full mt-[210px] mb-[120px] flex flex-col items-start [&>p]:leading-[2em] max-[850px]:mt-[25px]"
+	>
+		<img class="max-w-[720px] pointer-events-none max-[1000px]:max-w-[500px] max-[650px]:max-w-[300px]" src="./giveway.png" />
+
+		<div class="flex items-center mt-[36px] mb-3 max-w-[800px] max-[1000px]:max-w-[640px] max-[650px]:items-start">
 			<img class="pointer-events-none max-w-[80px] mr-2" src="./r.png" />
-			<p class="font-capitolina text-[32px] leading-[1.2em]">
+			<p class="font-capitolina text-[32px] leading-[1.2em] max-[1000px]:text-[24px]">
 				PCiege physical playing cards are available to collect for accomplished coders who have
 				completed enough
 			</p>
@@ -83,7 +85,7 @@
 			by connecting your wallet and showing us your accomplishments!
 		</p>
 
-		<div class="mb-24">
+		<div class="mb-24 w-full">
 			{#if choosing_wallet}
 				<div
 					class={`
@@ -101,19 +103,20 @@
                     font-bold 
                     text-pamphlet 
                     flex
+					flex-wrap
                 `}
 				>
-					<div class="flex flex-col">
+					<div class="flex flex-col mb-4">
 						<button class="bg-[#1bb6e5] mb-2" on:click={() => setupKit(WalletType.ALBEDO)}>Albedo</button>
 						<a class="underline text-berry text-sm" href="https://albedo.link/">albedo.link</a>
 					</div>
-					<div class="flex flex-col">
+					<div class="flex flex-col mb-4">
 						<button class="bg-[#634bc9] mb-2" on:click={() => setupKit(WalletType.FREIGHTER)}
 							>Freighter</button
 						>
 						<a class="underline text-berry text-sm" href="https://www.freighter.app/">freighter.app</a>
 					</div>
-					<div class="flex flex-col">
+					<div class="flex flex-col mb-4">
 						<button class="bg-[#c19cfc] mb-2" on:click={() => setupKit(WalletType.XBULL)}>xBull</button>
 						<a class="underline text-berry text-sm" href="https://xbull.app/">xbull.app</a>
 					</div>
@@ -121,7 +124,7 @@
 			{:else}
 				<button
 					on:click={() => (choosing_wallet = true)}
-					class="font-capitolina uppercase font-bold bg-firebolt text-pamphlet px-[30px] py-[20px] text-[24px] leading-[1em] rounded-lg border border-pamphlet shadow-[0_4px_0_0_rgba(41,30,39,1)]"
+					class="font-capitolina uppercase font-bold bg-firebolt text-pamphlet px-[30px] py-[20px] text-[24px] leading-[1em] rounded-lg border border-pamphlet shadow-[0_4px_0_0_rgba(41,30,39,1)] max-[650px]:w-full"
 					>Connect Wallet</button
 				>
 			{/if}
@@ -141,20 +144,18 @@
 		</div>
 	</div>
 
-	<img class="absolute top-0 right-[-175px] self-start max-w-[640px]" src="./card-and-dice.png" />
-
 	{#if code || dang}
-		<div class="absolute top-0 left-0 right-0 bottom-0 z-10 bg-darkvision bg-opacity-75 flex flex-col justify-center items-center">
+		<div class="absolute top-0 left-0 right-0 bottom-0 z-10 bg-darkvision bg-opacity-75 flex flex-col justify-center items-center px-2">
 			<div class="bg-darkvision text-pamphlet max-w-[650px] px-[30px] pt-[36px] pb-[60px] rounded-2xl leading-[2.5em] flex flex-col items-start">
 				{#if code}
 					<h1 class="font-capitolina text-[36px] font-bold mb-6">Congratulations!</h1>
-					<p class="font-capitolina text-[32px] mb-6">You’ve proven your worth and are eligible to receive a pack of RPCiege physical playing cards! Here is your unique claim link:</p>
-					<div class="border border-firebolt rounded-xl px-6 py-3">
-						<a class="underline font-nanum" href="{`https://giveaways.useslingshot.com/playing-cards-7c06470b/${code}`}">{`giveaways.useslingshot.com/playing-cards-7c06470b/${code}`}</a>
+					<p class="font-capitolina text-[32px] mb-6 max-[650px]:text-[24px]">You’ve proven your worth and are eligible to receive a pack of RPCiege physical playing cards! Here is your unique claim link:</p>
+					<div class="border border-firebolt rounded-xl p-6 flex w-full justify-center">
+						<a class="underline font-nanum text-[18px] max-[650px]:text-[12px] leading-[1.5em]" href="{`https://giveaways.useslingshot.com/playing-cards-7c06470b/${code}`}">{`giveaways.useslingshot.com/playing-cards-7c06470b/${code}`}</a>
 					</div>
 				{:else}
 					<h1 class="font-capitolina text-[36px] font-bold mb-6">Dang!</h1>
-					<p class="font-capitolina text-[32px] mb-8">It looks like you don’t have enough NFT digital cards in your wallet to be eligible for a pack of RPCiege physical playing cards. But all is not lost! Keep completing RPCiege skirmishes to build your collection, and check back again!</p>
+					<p class="font-capitolina text-[32px] mb-8 max-[650px]:text-[24px]">It looks like you don’t have enough NFT digital cards in your wallet to be eligible for a pack of RPCiege physical playing cards. But all is not lost! Keep completing RPCiege skirmishes to build your collection, and check back again!</p>
 					<a
 						href="https://rpciege.com/booklet"
 						class="font-capitolina uppercase font-bold bg-firebolt text-pamphlet px-[30px] py-[20px] text-[24px] leading-[1em] rounded-lg border border-pamphlet shadow-[0_4px_0_0_rgba(41,30,39,1)]"
