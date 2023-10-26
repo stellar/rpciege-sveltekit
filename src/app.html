@@ -1,62 +1,78 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-    <!-- Google Tag Manager -->
-    <script>
-      (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-      new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-      j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-      'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-      })(window,document,'script','dataLayer','GTM-NG34QZS');
-    </script>
-    <!-- End Google Tag Manager -->
 
-    <!-- Cloudflare Web Analytics -->
-    <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "9da34b94f8b54c96a601acab5dd7e165"}'></script>
-    <!-- End Cloudflare Web Analytics -->
+<head>
+  <!-- Google Tag Manager -->
+  <script>
+    (function (w, d, s, l, i) {
+      w[l] = w[l] || []; w[l].push({
+        'gtm.start':
+          new Date().getTime(), event: 'gtm.js'
+      }); var f = d.getElementsByTagName(s)[0],
+        j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+          'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+    })(window, document, 'script', 'dataLayer', 'GTM-NG34QZS');
+  </script>
+  <!-- End Google Tag Manager -->
 
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="canonical" href="https://rpciege.com" />
-    <meta property="og:url" content="https://rpciege.com" />
-    <title>RPCiege</title>
-    <link rel="icon" href="%sveltekit.assets%/favicon.png" />
-    <link rel="alternate icon" href="https://rpciege.com/favicon.png" type="image/png" sizes="16x16" />
-    <link rel="apple-touch-icon" href="https://rpciege.com/favicon.png" sizes="180x180" />
-    <meta name="theme-color" content="#da2f11" />
+  <!-- Cloudflare Web Analytics -->
+  <script defer src='https://static.cloudflareinsights.com/beacon.min.js'
+    data-cf-beacon='{"token": "9da34b94f8b54c96a601acab5dd7e165"}'></script>
+  <!-- End Cloudflare Web Analytics -->
 
-    <meta property="og:title" content="RPCiege" />
-    <meta property="og:site_name" content="RPCiege" />
-    <meta name="twitter:title" content="RPCiege" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="canonical" href="https://rpciege.com" />
+  <meta property="og:url" content="https://rpciege.com" />
+  <title>RPCiege</title>
+  <link rel="icon" href="%sveltekit.assets%/favicon.png" />
+  <link rel="alternate icon" href="https://rpciege.com/favicon.png" type="image/png" sizes="16x16" />
+  <link rel="apple-touch-icon" href="https://rpciege.com/favicon.png" sizes="180x180" />
+  <meta name="theme-color" content="#da2f11" />
 
-    <meta name="description" content="Conquer Fear, Forge Alliances, Become Unhackable." />
-    <meta property="og:description" content="Conquer Fear, Forge Alliances, Become Unhackable." />
-    <meta name="twitter:description" content="Conquer Fear, Forge Alliances, Become Unhackable." />
+  <meta property="og:title" content="RPCiege" />
+  <meta property="og:site_name" content="RPCiege" />
+  <meta name="twitter:title" content="RPCiege" />
 
-    <meta property="og:image" content="https://imagedelivery.net/g6Pj0V6gQzzMod63KwDUaw/b26a47bb-20c7-4efa-6fb7-8c3e701d4900/public" />
-    <meta name="twitter:image:src" content="https://imagedelivery.net/g6Pj0V6gQzzMod63KwDUaw/b26a47bb-20c7-4efa-6fb7-8c3e701d4900/public" />
+  <meta name="description" content="Conquer Fear, Forge Alliances, Become Unhackable." />
+  <meta property="og:description" content="Conquer Fear, Forge Alliances, Become Unhackable." />
+  <meta name="twitter:description" content="Conquer Fear, Forge Alliances, Become Unhackable." />
 
-    <meta property="og:type" content="website" />
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:site" content="@sorobanofficial" />
-    <meta name="twitter:creator" content="@sorobanofficial" />
+  <meta property="og:image"
+    content="https://imagedelivery.net/g6Pj0V6gQzzMod63KwDUaw/b26a47bb-20c7-4efa-6fb7-8c3e701d4900/public" />
+  <meta name="twitter:image:src"
+    content="https://imagedelivery.net/g6Pj0V6gQzzMod63KwDUaw/b26a47bb-20c7-4efa-6fb7-8c3e701d4900/public" />
 
-    <!-- <script src="https://challenges.cloudflare.com/turnstile/v0/api.js?onload=onloadTurnstileCallback" defer></script> -->
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@sorobanofficial" />
+  <meta name="twitter:creator" content="@sorobanofficial" />
 
-		%sveltekit.head%
-	</head>
-	
-	<body class="bg-red text-black" data-sveltekit-preload-data="hover">
-    <!-- Google Tag Manager (noscript) -->
-    <noscript>
-      <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NG34QZS" height="0" width="0" style="display:none;visibility:hidden"></iframe>
-    </noscript>
-    <!-- End Google Tag Manager (noscript) -->
+  <!-- <script src="https://challenges.cloudflare.com/turnstile/v0/api.js?onload=onloadTurnstileCallback" defer></script> -->
 
-		<div style="display: contents">%sveltekit.body%</div>
+  <link rel="stylesheet" href="https://use.typekit.net/haz1nwo.css">
 
-    <!-- Start of HubSpot Embed Code -->
-    <script type="text/javascript" id="hs-script-loader" async defer src="//js.hs-scripts.com/8130068.js"></script>
-    <!-- End of HubSpot Embed Code -->
-	</body>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather&family=Nanum+Gothic+Coding&display=swap"
+    rel="stylesheet">
+
+  %sveltekit.head%
+</head>
+
+<body class="bg-red text-black" data-sveltekit-preload-data="hover">
+  <!-- Google Tag Manager (noscript) -->
+  <noscript>
+    <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NG34QZS" height="0" width="0"
+      style="display:none;visibility:hidden"></iframe>
+  </noscript>
+  <!-- End Google Tag Manager (noscript) -->
+
+  <div style="display: contents">%sveltekit.body%</div>
+
+  <!-- Start of HubSpot Embed Code -->
+  <script type="text/javascript" id="hs-script-loader" async defer src="//js.hs-scripts.com/8130068.js"></script>
+  <!-- End of HubSpot Embed Code -->
+</body>
+
 </html>

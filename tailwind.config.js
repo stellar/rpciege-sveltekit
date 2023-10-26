@@ -9,8 +9,17 @@ export default {
       'black': '#000000',
       'transparent': 'transparent',
       'yellow': '#e2c69a',
-      'green': '#78c484'
+      'green': '#78c484',
+      'firebolt': '#e94f2d',
+      'pamphlet': '#f1eee5',
+      'fog': '#474542',
+      'berry': '#6f61ab',
     },
+    fontFamily: {
+      'capitolina': ['capitolina', 'ui-serif', 'serif'],
+      'merriweather': ['Merriweather', 'ui-serif', 'serif'],
+      'nanum': ['Nanum Gothic Coding', 'ui-monospace', 'monospace'],
+    }
   },
   plugins: [],
 }
