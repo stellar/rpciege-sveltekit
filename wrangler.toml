@@ -3,5 +3,7 @@ compatibility_date = "2023-10-20"
 
 kv_namespaces = [
   { binding = "EMAILS", id = "9b0b0abb1f7a414d8dc9ac1a4aa06e29", preview_id = "" },
-  { binding = "REFERRAL_CODES", id = "b0bb3daa4b994da5b4744c36ba49bc78", preview_id = "" }
+  { binding = "REFERRAL_CODES", id = "b0bb3daa4b994da5b4744c36ba49bc78", preview_id = "" },
+  { binding = "NFTS", id = "02772c7fa72b4798bc8576a2b0fdd2d1", preview_id = "" },
+  { binding = "GIVEAWAY_CODES", id = "62c48cd590e24247b14e57ec68691177", preview_id = "" }
 ]

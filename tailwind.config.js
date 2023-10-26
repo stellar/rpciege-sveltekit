@@ -11,9 +11,10 @@ export default {
       'yellow': '#e2c69a',
       'green': '#78c484',
       'firebolt': '#e94f2d',
-      'pamphlet': '#f1eee5',
-      'fog': '#474542',
-      'berry': '#6f61ab',
+      'pamphlet': '#f1eee4',
+      'fog': '#474442',
+      'berry': '#6f60ab',
+      'darkvision': '#292827'
     },
     fontFamily: {
       'capitolina': ['capitolina', 'ui-serif', 'serif'],
