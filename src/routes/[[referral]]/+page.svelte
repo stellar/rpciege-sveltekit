@@ -13,7 +13,7 @@
 
   $: claimed = codes.filter(({status}) => status !== 'unused').length
 
-  const countdownInterval = setInterval(() => updateCountdown(), 1000)
+  // const countdownInterval = setInterval(() => updateCountdown(), 1000)
 
   const image_ids = [
     "ccb0656e-6a7d-4a83-1e31-51e8b03da200",
@@ -29,7 +29,7 @@
   ]
 
   if (browser) {
-    updateCountdown()
+    // updateCountdown()
 
     if (form?.token)
       localStorage.setItem('token', form.token)
@@ -146,24 +146,24 @@
     })
   }
 
-  function updateCountdown() {
-    const now = new Date().getTime()
-    const eventDate = new Date(1686229200000).getTime()
-    const timeLeft = eventDate - now
+  // function updateCountdown() {
+  //   const now = new Date().getTime()
+  //   const eventDate = new Date(1686229200000).getTime()
+  //   const timeLeft = eventDate - now
 
-    if (timeLeft <= 0) {
-      clearInterval(countdownInterval)
-      countdown = `0d 0h 0m 0s`
-      return
-    }
+  //   if (timeLeft <= 0) {
+  //     clearInterval(countdownInterval)
+  //     countdown = `0d 0h 0m 0s`
+  //     return
+  //   }
 
-    const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24))
-    const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))
-    const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60))
-    const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000).toString().padStart(2, '0')
+  //   const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24))
+  //   const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))
+  //   const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60))
+  //   const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000).toString().padStart(2, '0')
     
-    countdown = `${days}d ${hours}h ${minutes}m ${seconds}s`
-  }
+  //   countdown = `${days}d ${hours}h ${minutes}m ${seconds}s`
+  // }
 </script>
 
 <div class="fixed top-0 left-0 right-0 min-h-screen bg-no-repeat bg-cover bg-top" style:background-image="url('./HQ-upscale.jpg')"></div>
