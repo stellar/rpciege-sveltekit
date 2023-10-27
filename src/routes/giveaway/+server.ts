@@ -23,7 +23,7 @@ export async function POST({ request, platform }) {
     let code = dev ? '001122' : await platform?.env?.GIVEAWAY_CODES.get(body.pubkey)
 
     if (!code) {
-        const { keys: codes }: any = await platform?.env?.GIVEAWAY_CODES.list({limit: 1})
+        const { keys: codes }: any = await platform?.env?.GIVEAWAY_CODES.list({prefix: 'code:', limit: 1})
 
         if (!codes.length)
             throw error(400, 'No code')
