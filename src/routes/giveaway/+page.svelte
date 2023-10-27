@@ -64,22 +64,21 @@
 <div
 	class="min-w-screen min-h-screen w-full bg-pamphlet flex justify-center font-merriweather text-fog text-[18px] overflow-hidden relative px-12 max-[1000px]:text-[16px] max-[850px]:flex-col max-[650px]:px-6"
 >
-	<img class="absolute z-10 top-0 right-[-175px] self-start max-w-[640px] pointer-events-none max-[1300px]:right-[-250px] max-[1150px]:right-[-400px] max-[850px]:static max-[850px]:max-w-[250px] max-[850px]:mt-[25px] max-[850px]:mx-12" src="./card-and-dice.png" />
+	<img class="absolute z-10 top-0 right-[-175px] self-start max-w-[640px] pointer-events-none max-[1300px]:right-[-250px] max-[1150px]:right-[-400px] max-[850px]:static max-[850px]:max-w-[250px] max-[850px]:mt-[25px] max-[850px]:mx-auto" src="./card-and-dice.png" />
 
 	<div
 		class="max-w-[1100px] w-full mt-[210px] mb-[120px] flex flex-col items-start [&>p]:leading-[2em] max-[850px]:mt-[25px]"
 	>
-		<img class="max-w-[720px] pointer-events-none max-[1000px]:max-w-[500px] max-[650px]:max-w-[300px]" src="./giveway.png" />
+		<img class="max-w-[720px] pointer-events-none max-[1000px]:max-w-[500px] max-[650px]:max-w-[300px]" src="./giveaway.png" />
 
-		<div class="flex items-center mt-[36px] mb-3 max-w-[800px] max-[1000px]:max-w-[640px] max-[650px]:items-start">
-			<img class="pointer-events-none max-w-[80px] mr-2" src="./r.png" />
+		<div class="flex items-center mt-[36px] mb-3 max-w-[810px] max-[1000px]:max-w-[640px] max-[650px]:items-start">
+			<img class="pointer-events-none max-w-[90px] mr-2" src="./r.png" />
 			<p class="font-capitolina text-[32px] leading-[1.2em] max-[1000px]:text-[24px]">
 				PCiege physical playing cards are available to collect for accomplished coders who have
-				completed enough
+				completed enough RPCiege skirmishes to claim 15 NFT digital cards.
 			</p>
 		</div>
 
-		<p class="mb-6">RPCiege skirmishes to claim 10 NFT digital cards.</p>
 		<p class="mb-12">
 			Brave adventurer, have your feats earned you the right to claim this sweet swag? <br /> Prove it
 			by connecting your wallet and showing us your accomplishments!
