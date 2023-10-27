@@ -62,9 +62,23 @@
 </script>
 
 <div
-	class="min-w-screen min-h-screen w-full bg-pamphlet flex justify-center font-merriweather text-fog text-[18px] overflow-hidden relative px-12 max-[1000px]:text-[16px] max-[850px]:flex-col max-[650px]:px-6"
+	class="min-w-screen min-h-screen w-full bg-pamphlet flex flex-col justify-start font-merriweather text-fog text-[18px] overflow-hidden relative px-12 items-center shadow-[inset_0_0_0_12px_rgba(71,68,66,1)] max-[1000px]:text-[16px] max-[650px]:px-6"
 >
-	<img class="absolute z-10 top-0 right-[-175px] self-start max-w-[640px] pointer-events-none max-[1300px]:right-[-250px] max-[1150px]:right-[-400px] max-[850px]:static max-[850px]:max-w-[250px] max-[850px]:mt-[25px] max-[850px]:mx-auto" src="./card-and-dice.png" />
+	<nav class="mt-[12px] shadow-[0_0_0_1px_rgba(71,68,66,1)] flex items-center w-screen px-[12px]">
+		<a href="https://rpciege.com" class="ml-4">
+			<img class="pointer-events-none max-w-[120px]" src="./logo.svg" />
+		</a>
+
+
+		<a href="https://discord.gg/stellardev" class="w-[30px] ml-auto mr-4">
+			<img class="w-full" src="./discord.svg">
+		</a>
+		<a href="/booklet" class="bg-firebolt font-nanum font-bold uppercase text-darkvision text-[16px] px-[30px] py-[20px] border-l border-fog">
+			Play Game
+		</a>
+	</nav>
+
+	<img class="absolute z-10 top-[100px] right-[-175px] self-start max-w-[640px] pointer-events-none max-[1300px]:right-[-250px] max-[1150px]:right-[-400px] max-[850px]:static max-[850px]:max-w-[250px] max-[850px]:mt-[25px] max-[850px]:mx-auto" src="./card-and-dice.png" />
 
 	<div
 		class="max-w-[1100px] w-full mt-[210px] mb-[120px] flex flex-col items-start [&>p]:leading-[2em] max-[850px]:mt-[25px]"
