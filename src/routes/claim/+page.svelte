@@ -79,9 +79,11 @@
           //   .replace('RPCIEGE', 'RPCIEGE0')
           // }
 
-          // TODO display community cards
-          if (balance.asset_code.substr(-1) === 'C')
-            return
+          // TODO display community and fortress cards
+          if (
+            balance.asset_code.substr(-1) === 'C'
+            || balance.asset_code.substr(-1) === 'F'
+          ) return
 
           const packCardsIndex = packCards.findIndex((pack) => pack.includes(balance.asset_code))
           const packCardsKey = packCardsIndex > -1 ? `pack_${packCardsIndex + 1}` : 'pack_0'
