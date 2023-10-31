@@ -203,7 +203,7 @@
       {#if countdown}
         In <strong class="text-xl">{countdown}</strong> the
       {:else}
-        the
+        The
       {/if} choice is up to you...</p>
 
       <form class="flex flex-col w-full mt-6 max-[650px]:!mb-0" style:margin-bottom="80px" method="POST" action="?/enlist">
