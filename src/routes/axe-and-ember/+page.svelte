@@ -241,7 +241,14 @@
 </div>
 
 <div class="fixed inset-0 z-10 pointer-events-none max-[620px]:hidden" style:box-shadow="inset 0 0 0 1rem #da2f11, inset 0 0 0 calc(1rem + 5px) black"></div>
-<div class="absolute inset-0 z-10 pointer-events-none min-[620px]:hidden" style:box-shadow="inset 0 1rem 0 0 #da2f11, inset 0 calc(1rem + 5px) 0 0 black"></div>
-<a class="fixed top-0 left-1/2 -translate-x-1/2 z-20 max-[620px]:absolute" style:background-color="#da2f11" style:box-shadow="inset 0 1rem 0 0 #da2f11, inset 0 0 0 5px black" style:padding="1rem 3.5rem" href="https://fastcheapandoutofcontrol.com">
-  <img class="w-screen max-w-[150px]" src="./fca00c.svg">
-</a>
+<div class="absolute inset-0 z-10 pointer-events-none min-[621px]:hidden" style:box-shadow="inset 0 1rem 0 0 #da2f11, inset 0 calc(1rem + 5px) 0 0 black"></div>
+
+<div class="fixed top-0 left-1/2 -translate-x-1/2 z-20 max-[620px]:absolute flex">
+  <a class="px-7 text-white z-10 backdrop-blur-sm flex items-center rounded-bl-3xl min-w-[150px] justify-center max-[620px]:hidden" style:box-shadow="inset 0 0 0 1px rgba(0,0,0,0.2)" style:margin-top="calc(1rem + 5px)" href="/leaderboard">Leaderboard</a>
+
+  <a style:background-color="#da2f11" style:box-shadow="inset 0 1rem 0 0 #da2f11, inset 0 0 0 5px black" style:padding="1rem 3.5rem" href="https://fastcheapandoutofcontrol.com">
+    <img class="w-screen max-w-[150px]" src="./fca00c.svg">
+  </a>
+
+  <a class="px-7 text-white z-10 backdrop-blur-sm flex items-center rounded-br-3xl min-w-[150px] justify-center max-[620px]:hidden" style:box-shadow="inset 0 0 0 1px rgba(0,0,0,0.2)" style:margin-top="calc(1rem + 5px)" href="/claim">Claim</a>
+</div>
