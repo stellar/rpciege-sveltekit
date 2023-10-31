@@ -164,7 +164,7 @@
       <img class="w-full" src="./dragon-pano.png">
 
       <ol class="font-serif my-4 mb-4 [&>li>a]:underline [&>li>a]:font-bold">
-        <li>[1] <a href="https://stellar.org/blog">Read up</a> on your upcoming quest to gain valuable insights and insider information</li>
+        <li>[1] <a href="https://stellar.org/blog/developers/rpciege-axe-and-ember-get-set-up">Read up</a> on your upcoming quest to gain valuable insights and insider information</li>
         <li>[2] <a href="https://discord.gg/stellardev">Join our Discord</a> to forge alliances and prepare for what lies ahead</li>
         <li>[3] <a href="https://rpciege.com/booklet">Play previous RPCiege</a> skirmishes to level up your expertise</li>
       </ol>
