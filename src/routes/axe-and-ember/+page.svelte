@@ -13,7 +13,7 @@
 
   $: claimed = codes.filter(({status}) => status !== 'unused').length
 
-  // const countdownInterval = setInterval(() => updateCountdown(), 1000)
+  const countdownInterval = setInterval(() => updateCountdown(), 1000)
 
   const image_ids = [
     "ccb0656e-6a7d-4a83-1e31-51e8b03da200",
@@ -29,7 +29,7 @@
   ]
 
   if (browser) {
-    // updateCountdown()
+    updateCountdown()
 
     if (form?.token)
       localStorage.setItem('token', form.token)
@@ -65,25 +65,6 @@
         }
       })
     }
-
-    // if (window.turnstile)
-    //   turnstile.ready(function () {
-    //     turnstile.render('#turnstile', {
-    //       sitekey: '0x4AAAAAAAFF6nYIU7bzj4Zx',
-    //       callback: function(token) {
-    //         console.log(`Challenge Success ${token}`);
-    //       },
-    //     });
-    //   });
-
-    // window.onloadTurnstileCallback = function() {
-    //   turnstile.render('#turnstile', {
-    //     sitekey: '0x4AAAAAAAFF6nYIU7bzj4Zx',
-    //     callback: function(token) {
-    //       console.log(`Challenge Success ${token}`);
-    //     },
-    //   });
-    // };
   }
 
   function copyCode(link: string, code: string) {
@@ -146,27 +127,27 @@
     })
   }
 
-  // function updateCountdown() {
-  //   const now = new Date().getTime()
-  //   const eventDate = new Date(1686229200000).getTime()
-  //   const timeLeft = eventDate - now
+  function updateCountdown() {
+    const now = new Date().getTime()
+    const eventDate = new Date('Oct 31 2023 9:00:00 PM 0400').getTime()
+    const timeLeft = eventDate - now
 
-  //   if (timeLeft <= 0) {
-  //     clearInterval(countdownInterval)
-  //     countdown = `0d 0h 0m 0s`
-  //     return
-  //   }
+    if (timeLeft <= 0) {
+      clearInterval(countdownInterval)
+      countdown = `0d 0h 0m 0s`
+      return
+    }
 
-  //   const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24))
-  //   const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))
-  //   const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60))
-  //   const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000).toString().padStart(2, '0')
+    const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24))
+    const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))
+    const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60))
+    const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000).toString().padStart(2, '0')
     
-  //   countdown = `${days}d ${hours}h ${minutes}m ${seconds}s`
-  // }
+    countdown = `${days}d ${hours}h ${minutes}m ${seconds}s`
+  }
 </script>
 
-<div class="fixed top-0 left-0 right-0 min-h-screen bg-no-repeat bg-cover bg-top" style:background-image="url('./HQ-upscale.jpg')"></div>
+<div class="fixed top-0 left-0 right-0 bottom-0 min-h-screen bg-no-repeat bg-cover bg-center" style:background-image="url('./axe-and-ember-bg.png')"></div>
 <div class="fixed inset-0" style:background="linear-gradient(180deg, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0) 50%, rgba(0,0,0,0.3) 100%)"></div>
 
 <div class="relative w-screen min-h-screen flex flex-col items-center px-8 max-[620px]:px-2">
@@ -177,40 +158,16 @@
     
     {#if codes.length}
       <h1 class="flex items-center text-black mb-2">
-        <span class="text-3xl -mb-4" style:font-family="Columbus" style:line-height="revert">Now, Recruit an Army</span>
-        &nbsp; or
-        <a class="px-4 py-2 rounded hover:ring-2 hover:ring-red hover:ring-offset-2 ring-offset-yellow bg-red text-yellow ml-2" href="/booklet" data-sveltekit-reload>Play The Game</a>
+        <span class="text-3xl -mb-4" style:font-family="Columbus" style:line-height="revert">Now, Prepare for Night</span>
       </h1>
 
-      <img class="w-full" src="./rpciege-posters-shadow.png">
+      <img class="w-full" src="./dragon-pano.png">
 
-      <p class="font-serif my-4">Share these unique codes to forge the alliance for the siege. Recruit at least 5 friends to unlock the entire elite <em><strong>RPCiege Poster</strong></em> collection.</p>
-
-      <ul class="my-4">
-        {#each codes as {code, status, image_id, image_id_sm, claiming, copied}}
-          <li class="relative z-10 flex items-center mb-1">
-            <a href={`https://api.stellar.quest/badge/${image_id}?v=4`}>
-              <img class="mr-2" style:width="24px" src={`https://imagedelivery.net/g6Pj0V6gQzzMod63KwDUaw/${image_id_sm}/w=96`}>
-            </a>
-            →
-            {#if status === 'unused'} 
-              <span class="mx-2">{location.host}/{code}</span> 
-              <button class="uppercase text-xs bg-red py-1 px-2 rounded text-yellow {copied ? '!text-black' : ''}" style:background-color={copied ? "#78c484" : ''} on:click={() => copyCode(`${location.origin}/${code}`,code)}>{copied ? '✘ Copied' : 'Copy'}</button>
-            {:else if status === 'unclaimed'}
-              <span class="underline line-through mx-2">{code}</span> 
-              <button class="uppercase text-xs bg-black py-1 px-2 rounded text-yellow" on:click={() => claimNFT(code)}>{claiming ? '...' : 'Unlock'}</button>
-            {:else}
-              <span class="uppercase text-xs mx-2 py-1 px-2 rounded text-black" style:background-color="#78c484">✘ Unlocked</span>
-            {/if}
-          </li>
-        {/each}
-
-        <img class="absolute z-0 right-0 pointer-events-none top-1/2 -translate-y-1/2 max-[620px]:opacity-30" style:width="180px" src="./enlistment-icon.png">
-      </ul>
-
-      {#if claimed}
-        <p class="text-sm [&>a]:underline mb-4 border-l-4 pl-2">RPCiege Posters are issued as claimable NFTs on the Stellar blockchain. In order to own them you'll need claim them. Many Stellar wallets such as <a href="https://albedo.link">Albedo</a> and <a href="https://xbull.app">xBull</a> have this feature built in. If you're using <a href="https://www.freighter.app">Freighter</a> you could try <a href="https://balances.lumens.space/account">this site</a>. Good luck! If all else fails we have a <a href="https://quest.stellar.org/learn/series/3/quest/3">Stellar Quest challenge</a> which walks through how to claim these balances in either the <a href="https://laboratory.stellar.org">Laboratory</a> or the JS SDK.</p>
-      {/if}
+      <ol class="font-serif my-4 mb-4 [&>li>a]:underline [&>li>a]:font-bold">
+        <li>[1] <a href="https://stellar.org/blog">Read up</a> on your upcoming quest to gain valuable insights and insider information</li>
+        <li>[2] <a href="https://discord.gg/stellardev">Join our Discord</a> to forge alliances and prepare for what lies ahead</li>
+        <li>[3] <a href="https://rpciege.com/booklet">Play previous RPCiege</a> skirmishes to level up your expertise</li>
+      </ol>
     {:else if form?.id}
       <h1 class="relative z-10 text-2xl text-black" style:font-family="Columbus" style:line-height="revert">Check With Reconnaissance (Your Email)</h1>
 
@@ -225,16 +182,29 @@
       </form>
     {:else}
       <h1 class="flex items-center text-black mb-2">
-        <span class="text-3xl -mb-4" style:font-family="Columbus" style:line-height="revert">The Siege Has Begun!</span>
-        <a class="px-4 py-2 rounded hover:ring-2 hover:ring-red hover:ring-offset-2 ring-offset-yellow bg-red text-yellow ml-2" href="/booklet" data-sveltekit-reload>Play The Game</a>
+        <span class="text-5xl -mb-4" style:font-family="Columbus" style:line-height="revert">Axe & Ember</span>
       </h1>
 
       <p class="font-serif mb-3">
-        Blast back to the future of gaming with 'RPCiege"! Get ready for an adrenaline-pumped, mind-blowing <a class="underline" href="https://soroban.stellar.org/">Soroban</a> developer experience where you're not just playing a game, you're rewriting history with every challenge you conquer. Each task you tackle takes you through time, unlocking NFTs styled after the most legendary heroes and villains known to man! With 5 levels of nail-biting difficulty, the stakes only get higher the more you play.
+        You’re a traveling rock peddler journeying to a new town. Your path has unexpectedly led you into the depths of Dreadwood Forest on the night of the full moon. You’ve heard stories of these woods and the monsters that emerge when the sun goes down. And you know these dangers are even more menacing under the silvery gaze of the full moon’s light.        
       </p>
-      <p class="font-serif">
-        Your mission, should you choose to accept it, is to stress test the network and make your mark in a tsunami of GET and POST requests. Whether you're a veteran dApp interface manipulator or a newbie just cutting your teeth on complex footprints, this is your playground. So what are you waiting for? Dive into the RPCiege and earn your place in the annals of gaming history! Fire up those contracts, hash out those puzzles, and leave no event unlogged. The battleground of the future awaits you, warrior. Time to unleash your full power!
-      </p>  
+      <p class="font-serif mb-3">
+        You are in a lush grass-covered clearing surrounded by dense pine trees when you decide to make camp for the night. You must survive until morning by keeping the monsters at bay with artificial light, or by trying something a little more creative. Monsters can attack anytime once the sun sets (from 9 p.m. to 5 a.m.).
+      </p>
+      <p class="font-serif mb-3">
+        In addition to the dull axe and some flint hanging from your belt, you have a knapsack with two items in it:
+      </p>
+      <ol class="font-serif mb-3">
+        <li>[1] Oil lamp and canister of oil</li>
+        <li>[2] Torch and sharpening stone</li>
+        <li>[3] Flask of whiskey and lucky amulet</li>
+      </ol>
+      <p>
+      {#if countdown}
+        In <strong class="text-xl">{countdown}</strong> the
+      {:else}
+        the
+      {/if} choice is up to you...</p>
 
       <form class="flex flex-col w-full mt-6 max-[650px]:!mb-0" style:margin-bottom="80px" method="POST" action="?/enlist">
         <div class="flex">
@@ -244,9 +214,6 @@
           <button class="relative z-10 px-2 py-1 rounded shrink-0 order-3 hover:ring-2 hover:ring-red hover:ring-offset-2 ring-offset-yellow max-[650px]:!mr-0" style:background-color="#da2f11" style:color="#f7d892" style:margin-right="140px" on:click={() => loading = true}>{loading ? '...' : 'Enlist Me'}</button>
           <img class="absolute z-0 right-0 max-[650px]:opacity-30 max-[650px]:!-top-24 pointer-events-none" style:width="180px" style:top="-30px" src="./enlistment-icon.png">
         </div>
-
-        <!-- <div class="cf-turnstile" data-sitekey="0x4AAAAAAAFF6nYIU7bzj4Zx"></div> -->
-        <!-- <div id="turnstile" class="mt-2"></div> -->
       </form>
     {/if}
 
@@ -260,7 +227,7 @@
 
     <div class="flex mt-4 max-[560px]:flex-col">
       <div class="flex [&>a]:text-sm [&>a]:underline [&>a]:text-center [&>a:hover]:text-red max-[560px]:justify-center">
-        <a class="border-r pr-2 mr-2" href="/booklet" data-sveltekit-reload>Play the Game</a>
+        <a class="border-r pr-2 mr-2" href="/booklet" data-sveltekit-reload>Play RPCiege</a>
         <a class="border-r pr-2 mr-2" href="https://soroban.stellar.org">Learn about Soroban</a>
         <a class="border-r pr-2 mr-2" href="https://discord.gg/stellardev">Join the Discord</a>
         <a href="https://twitter.com/sorobanofficial">Follow on Twitter</a>
@@ -271,12 +238,6 @@
       {/if}
     </div>
   </div>
-
-  <h1 class="text-7xl text-white mr-auto ml-8 mt-auto mb-8 flex flex-col max-[860px]:text-5xl max-[620px]:text-3xl max-[620px]:text-center max-[620px]:ml-auto" style:font-family="Columbus" style:line-height="revert">
-    <span style:margin-bottom="-0.2em">Conquer Fear,</span>
-    <span style:margin-bottom="-0.2em">Forge Alliances,</span>
-    <span>Become Unhackable.</span>
-  </h1>
 </div>
 
 <div class="fixed inset-0 z-10 pointer-events-none max-[620px]:hidden" style:box-shadow="inset 0 0 0 1rem #da2f11, inset 0 0 0 calc(1rem + 5px) black"></div>

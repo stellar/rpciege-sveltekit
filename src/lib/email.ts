@@ -4,10 +4,13 @@ import { dev } from '$app/environment'
 const api = fetcher({ base: 'https://api.sendgrid.com/v3' })
 
 export function validateAddress(email: string, env: App.Platform["env"] | undefined) {
+  if (dev)
+    return { result: { verdict: 'Valid' } }
+
   return api.post(
-    '/validations/email', 
+    '/validations/email',
     { email },
-    { headers: { Authorization: `Bearer ${env?.SG_VALIDATION}` }}
+    { headers: { Authorization: `Bearer ${env?.SG_VALIDATION}` } }
   ).catch((err) => {
     // https://github.com/kwhitley/itty-fetcher/issues/32
     if (err.message.includes(`(reading 'includes')`))
@@ -24,7 +27,7 @@ export async function sendCode(email: string, id: string, referral: string | und
 
   if (!dev)
     return api.post(
-      '/mail/send', 
+      '/mail/send',
       {
         personalizations: [{ to: [{ email }] }],
         subject: `${code} is your RPCiege enlistment code`,
@@ -34,7 +37,7 @@ export async function sendCode(email: string, id: string, referral: string | und
         }],
         from: { email: 'noreply@rpciege.com' }
       },
-      { headers: { Authorization: `Bearer ${env?.SG_SECRET}` }}
+      { headers: { Authorization: `Bearer ${env?.SG_SECRET}` } }
     ).catch((err) => {
       // https://github.com/kwhitley/itty-fetcher/issues/32
       if (err.message.includes(`(reading 'includes')`))
