@@ -9,24 +9,9 @@
   let codes: Array<any> = []
   let loading: boolean = false
   let token: string
-  let countdown: string
-
-  $: claimed = codes.filter(({status}) => status !== 'unused').length
+  let countdown: string|null = null
 
   const countdownInterval = setInterval(() => updateCountdown(), 1000)
-
-  const image_ids = [
-    "ccb0656e-6a7d-4a83-1e31-51e8b03da200",
-    "GA3TEWIUQOSAKW25DADJILDGTCMEOSELHVTH3U3HHEAW7P6TUMJP6IRN",
-    "6fb9d682-3a03-4a0e-d6b0-be21b0505d00",
-    "GANS46Q7RRMFEV4FPKDCDKHYWDNG5O5EO7GZS3ZGL4MCM6ORYLMFU7P7",
-    "cbf385d5-c65c-4add-2cc0-f856ba6a8100",
-    "GD6OLQUWE3J42TYIVO3CP5M6WPYXWOE4FO2V3YWXHTA4L63ZFUXB7D7E",
-    "033251f4-e0bc-455e-f013-68a558940900",
-    "GA4QDG22XUJEBJC7OBT56WSPZDBIFII6TVK2KX55BSFN5T2YQPPWHUID",
-    "e7acb9b8-63e7-4953-f212-7fe8f04c4b00",
-    "GB4JV3OBVNZIH3JRB4TTNNB65HR7CJR5A7LZVEHIKR3WYEXINPLMZDJN"
-  ]
 
   if (browser) {
     updateCountdown()
@@ -49,92 +34,22 @@
           'Authorization': `Bearer ${token}`
         }
       }).then(async (res) => {
-        if (res.ok) {
+        if (res.ok)
           codes = await res.json()
-          codes = codes.map((codeObject, i) => {
-            return {
-              ...codeObject,
-              image_id: image_ids[i * 2 + 1],
-              image_id_sm: image_ids[i * 2],
-              copied: false
-            }
-          })
-        } else {
-          if (res.status === 401)
-            localStorage.removeItem('token')
-        }
+        else if (res.status === 401)
+          localStorage.removeItem('token')
       })
     }
   }
 
-  function copyCode(link: string, code: string) {
-    navigator.clipboard.writeText(link)
-
-    updateCopied(code, true)
-
-    setTimeout(() => updateCopied(code, false), 3000)
-  }
-
-  function claimNFT(code: string) {
-    updateClaiming(code, true)
-
-    const pubkey = prompt('Enter your Stellar public key to claim your NFT')
-
-    if (!pubkey)
-      return updateClaiming(code, false)
-
-    fetch(`/claim/${code}`, {
-      method: 'POST',
-      headers: {
-        'Authorization': `Bearer ${token}`
-      },
-      body: JSON.stringify({ pubkey }),
-    })
-    .then(async (res) => {
-      if (res.ok)
-        return
-      else if (res.status === 401)
-        localStorage.removeItem('token')
-      throw await res.json()
-    })
-    .then(() => {
-      codes = codes.map((codeObject, i) => {
-        return {
-          ...codeObject,
-          status: codeObject.code === code ? null : codeObject.status,
-        }
-      })
-    })
-    .catch((err) => alert(JSON.stringify(err, null, 2)))
-    .finally(() => updateClaiming(code, false))
-  }
-
-  function updateCopied(code: string, copied: boolean) {
-    codes = codes.map((codeObject) => {
-      return {
-        ...codeObject,
-        copied: codeObject.code === code ? copied : codeObject.copied,
-      }
-    })
-  }
-
-  function updateClaiming(code: string, claiming: boolean) {
-    codes = codes.map((codeObject) => {
-      return {
-        ...codeObject,
-        claiming: codeObject.code === code ? claiming : codeObject.claiming,
-      }
-    })
-  }
-
   function updateCountdown() {
     const now = new Date().getTime()
-    const eventDate = new Date('Oct 31 2023 9:00:00 PM 0400').getTime()
+    const eventDate = new Date('Oct 31 2023 9:00:00 PM GMT-0400').getTime()
     const timeLeft = eventDate - now
 
     if (timeLeft <= 0) {
       clearInterval(countdownInterval)
-      countdown = `0d 0h 0m 0s`
+      countdown = null
       return
     }
 
