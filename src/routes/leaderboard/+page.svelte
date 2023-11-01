@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { dev } from '$app/environment';
     import { page } from '$app/stores'
 
     const skirmishes = new Array(10)
@@ -20,8 +21,7 @@
     lookupLeaderboard()    
 
     async function lookupLeaderboard() {
-        // const resLeaderboard: any = await fetch(`https://futurenet.rpciege.com/leaderboard?skirmish=${skirmish}&field=${field}`).then((res) => res.json())
-        const resLeaderboard: any = await fetch(`http://localhost:8787/leaderboard?skirmish=${skirmish}&field=${field}`).then((res) => res.json())
+        const resLeaderboard: any = await fetch(`${dev ? 'http://localhost:8787' : 'https://futurenet.rpciege.com'}/leaderboard?skirmish=${skirmish}&field=${field}`).then((res) => res.json())
 
         if (resLeaderboard?.length)
             leaderboard = resLeaderboard
