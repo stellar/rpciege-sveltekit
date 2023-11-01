@@ -4,11 +4,7 @@
     const skirmishes = new Array(10)
     const fields = [
         'timestamp',
-        'transaction_bytes',
         'instructions',
-        'read_bytes',
-        'write_bytes',
-        'extended_metadata_size_bytes',
         'fee_charged',
     ]
 
@@ -24,7 +20,8 @@
     lookupLeaderboard()    
 
     async function lookupLeaderboard() {
-        const resLeaderboard: any = await fetch(`https://futurenet.rpciege.com/leaderboard?skirmish=${skirmish}&field=${field}`).then((res) => res.json())
+        // const resLeaderboard: any = await fetch(`https://futurenet.rpciege.com/leaderboard?skirmish=${skirmish}&field=${field}`).then((res) => res.json())
+        const resLeaderboard: any = await fetch(`http://localhost:8787/leaderboard?skirmish=${skirmish}&field=${field}`).then((res) => res.json())
 
         if (resLeaderboard?.length)
             leaderboard = resLeaderboard
@@ -49,6 +46,7 @@
             {#each skirmishes as _, i}
                 <option value={i + 1}>Skirmish {i + 1}</option>
             {/each}
+            <option value={15}>Axe & Ember</option>
         </select>
         
         <select class="mb-2 capitalize" bind:value={field} on:change={lookupLeaderboard}>
