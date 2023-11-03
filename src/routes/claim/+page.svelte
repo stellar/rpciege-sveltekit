@@ -85,7 +85,7 @@
             || balance.asset_code.substr(-1) === 'F'
           ) return
 
-          const packCardsIndex = packCards.findIndex((pack) => pack.includes(balance.asset_code))
+          const packCardsIndex = packCards.findIndex((pack) => pack.includes(processAssetCode(balance.asset_code)))
           const packCardsKey = packCardsIndex > -1 ? `pack_${packCardsIndex + 1}` : 'pack_0'
           const pack = {
               ...balance,
@@ -134,7 +134,7 @@
       //     .replace('RPCIEGE', 'RPCIEGE0')
       // }
 
-      const packCardsIndex = packCards.findIndex((pack) => pack.includes(code))
+      const packCardsIndex = packCards.findIndex((pack) => pack.includes(processAssetCode(code)))
       const packCardsKey = packCardsIndex > -1 ? `pack_${packCardsIndex + 1}` : 'pack_0'
 
       const pack = {
