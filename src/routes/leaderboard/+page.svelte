@@ -45,8 +45,11 @@
         <select class="mb-2" bind:value={skirmish} on:change={lookupLeaderboard}>
             {#each skirmishes as _, i}
                 <option value={i + 1}>Skirmish {i + 1}</option>
+
+                {#if i === 9}
+                    <option value={15}>Axe & Ember</option>
+                {/if}
             {/each}
-            <option value={15}>Axe & Ember</option>
         </select>
         
         <select class="mb-2 capitalize" bind:value={field} on:change={lookupLeaderboard}>
