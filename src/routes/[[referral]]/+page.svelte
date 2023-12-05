@@ -179,7 +179,7 @@
       <h1 class="flex items-center text-black mb-2">
         <span class="text-3xl -mb-4" style:font-family="Columbus" style:line-height="revert">Now, Recruit an Army</span>
         &nbsp; or
-        <a class="px-4 py-2 rounded hover:ring-2 hover:ring-red hover:ring-offset-2 ring-offset-yellow bg-red text-yellow ml-2" href="/booklet" data-sveltekit-reload>Play The Game</a>
+        <a class="px-4 py-2 rounded hover:ring-2 hover:ring-red hover:ring-offset-2 ring-offset-yellow bg-red text-yellow ml-2" href="/booklet/kit-and-caboodle" data-sveltekit-reload>Play The Game</a>
       </h1>
 
       <img class="w-full" src="./rpciege-posters-shadow.png">
@@ -226,7 +226,7 @@
     {:else}
       <h1 class="flex items-center text-black mb-2">
         <span class="text-3xl -mb-4" style:font-family="Columbus" style:line-height="revert">The Siege Has Begun!</span>
-        <a class="px-4 py-2 rounded hover:ring-2 hover:ring-red hover:ring-offset-2 ring-offset-yellow bg-red text-yellow ml-2" href="/booklet" data-sveltekit-reload>Play The Game</a>
+        <a class="px-4 py-2 rounded hover:ring-2 hover:ring-red hover:ring-offset-2 ring-offset-yellow bg-red text-yellow ml-2" href="/booklet/kit-and-caboodle" data-sveltekit-reload>Play The Game</a>
       </h1>
 
       <p class="font-serif mb-3">
@@ -260,7 +260,7 @@
 
     <div class="flex mt-4 max-[560px]:flex-col">
       <div class="flex [&>a]:text-sm [&>a]:underline [&>a]:text-center [&>a:hover]:text-red max-[560px]:justify-center">
-        <a class="border-r pr-2 mr-2" href="/booklet" data-sveltekit-reload>Play the Game</a>
+        <a class="border-r pr-2 mr-2" href="/booklet/kit-and-caboodle" data-sveltekit-reload>Play the Game</a>
         <a class="border-r pr-2 mr-2" href="https://soroban.stellar.org">Learn about Soroban</a>
         <a class="border-r pr-2 mr-2" href="https://discord.gg/stellardev">Join the Discord</a>
         <a href="https://twitter.com/sorobanofficial">Follow on Twitter</a>
