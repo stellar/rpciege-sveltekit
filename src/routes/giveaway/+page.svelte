@@ -73,7 +73,7 @@
 		<a href="https://discord.gg/stellardev" class="w-[30px] ml-auto mr-4">
 			<img class="w-full" src="./discord.svg">
 		</a>
-		<a href="/booklet" class="bg-firebolt font-nanum font-bold uppercase text-darkvision text-[16px] px-[30px] py-[20px] border-l border-fog">
+		<a href="/booklet/kit-and-caboodle" class="bg-firebolt font-nanum font-bold uppercase text-darkvision text-[16px] px-[30px] py-[20px] border-l border-fog">
 			Play Game
 		</a>
 	</nav>
@@ -170,7 +170,7 @@
 					<h1 class="font-capitolina text-[36px] font-bold mb-6">Dang!</h1>
 					<p class="font-capitolina text-[32px] mb-8 max-[650px]:text-[24px]">It looks like you don’t have enough NFT digital cards in your wallet to be eligible for a pack of RPCiege physical playing cards. But all is not lost! Keep completing RPCiege skirmishes to build your collection, and check back again!</p>
 					<a
-						href="https://rpciege.com/booklet"
+						href="https://rpciege.com/booklet/kit-and-caboodle"
 						class="font-capitolina uppercase font-bold bg-firebolt text-pamphlet px-[30px] py-[20px] text-[24px] leading-[1em] rounded-lg border border-pamphlet shadow-[0_4px_0_0_rgba(41,30,39,1)]"
 						>Play Game</a
 					>

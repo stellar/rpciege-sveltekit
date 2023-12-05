@@ -83,7 +83,7 @@
       <ol class="font-serif my-4 mb-4 [&>li>a]:underline [&>li>a]:font-bold">
         <li>[1] <a href="https://stellar.org/blog/developers/rpciege-axe-and-ember-get-set-up">Read up</a> on your upcoming quest to gain valuable insights and insider information</li>
         <li>[2] <a href="https://discord.gg/stellardev">Join our Discord</a> to forge alliances and prepare for what lies ahead</li>
-        <li>[3] <a href="https://rpciege.com/booklet">Play previous RPCiege</a> skirmishes to level up your expertise</li>
+        <li>[3] <a href="https://rpciege.com/booklet/kit-and-caboodle">Play previous RPCiege</a> skirmishes to level up your expertise</li>
       </ol>
     {:else if form?.id}
       <h1 class="relative z-10 text-2xl text-black" style:font-family="Columbus" style:line-height="revert">Check With Reconnaissance (Your Email)</h1>
