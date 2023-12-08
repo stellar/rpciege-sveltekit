@@ -2,7 +2,7 @@
 	import { dev } from '$app/environment';
     import { page } from '$app/stores'
 
-    const skirmishes = new Array(13)
+    const skirmishes = new Array(14)
     const fields = [
         'timestamp',
         'instructions',
