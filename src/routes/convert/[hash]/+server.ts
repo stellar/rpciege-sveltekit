@@ -1,17 +1,15 @@
 import { text } from "@sveltejs/kit";
-import { StrKey } from "stellar-base"; 
+import { Address } from "stellar-base";
 
 /** @type {import('./$types').RequestHandler} */
 export async function GET({ params }) {
   let hash
 
   if (params.hash.length === 64)
-    hash = StrKey.encodeContract(
-      Buffer.from(params.hash, 'hex')
-    )
+    hash = Address.contract(Buffer.from(params.hash, 'hex'))
 
   else if (params.hash.length === 56)
-    hash = StrKey.decodeContract(params.hash).toString('hex')
+    hash = Address.fromString(params.hash)._key.toString('hex')
 
   return text(hash)
 }
