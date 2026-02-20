@@ -343,6 +343,6 @@
     <a class="border-r pr-2 mr-2" href="/booklet/kit-and-caboodle" data-sveltekit-reload>Play the Game</a>
     <a class="border-r pr-2 mr-2" href="https://soroban.stellar.org">Learn about Soroban</a>
     <a class="border-r pr-2 mr-2" href="https://discord.gg/stellardev">Join the Discord</a>
-    <a href="https://twitter.com/sorobanofficial">Follow on Twitter</a>
+    <a href="https://twitter.com/BuildOnStellar">Follow on Twitter</a>
   </div>
 </div>
